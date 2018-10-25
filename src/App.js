@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+import Picker from './components/electron/Picker'
+
 class App extends Component {
   render() {
     return (
@@ -19,6 +21,7 @@ class App extends Component {
           >
             It's me
           </a>
+          <Picker />
         </header>
       </div>
     )
