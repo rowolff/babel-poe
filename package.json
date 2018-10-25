@@ -76,8 +76,8 @@
     "foreman": "^3.0.1",
     "electron": "^3.0.6",
     "electron-builder": "^20.28.4",
-    "babel-eslint": "^8.2.5",
-    "eslint": "^4.19.1",
+    "babel-eslint": "^9.0.0",
+    "eslint": "5.6.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
@@ -89,7 +89,7 @@
     "font-blast": "^0.6.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.12.1",
-    "jest": "^22.4.3",
+    "jest": "23.6.0",
     "node-fetch": "^2.1.2"
   },
   "browserslist": [
