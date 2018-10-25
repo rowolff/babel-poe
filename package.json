@@ -13,7 +13,29 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "ebuild": "npm run build && node_modules/.bin/build",
-    "winbuild": "npm run build && node_modules/.bin/build --win"
+    "winbuild": "npm run build && node_modules/.bin/build --win",
+    "format": "prettier --write '{src,server,webpack,mailserver}/**/*.{js,json}'",
+    "lint": "eslint '{src,server,webpack,mailserver}/**/*.js' --fix"
+  },
+  "pre-commit": [
+    "format",
+    "lint"
+  ],
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "standard",
+      "standard-react",
+      "prettier"
+    ],
+    "rules": {
+      "react/prop-types": 0,
+      "no-undef": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   },
   "description": "Auto translator for PoE chat messages as Electron app",
   "homepage": "./",
@@ -53,10 +75,22 @@
   "devDependencies": {
     "foreman": "^3.0.1",
     "electron": "^3.0.6",
-    "electron-builder": "^20.28.4"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "electron-builder": "^20.28.4",
+    "babel-eslint": "^8.2.5",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "font-blast": "^0.6.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.12.1",
+    "jest": "^22.4.3",
+    "node-fetch": "^2.1.2"
   },
   "browserslist": [
     ">0.2%",
