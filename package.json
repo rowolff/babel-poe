@@ -1,0 +1,67 @@
+{
+  "name": "babel-poe",
+  "author": {
+    "name": "Robert Wolff"
+  },
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "nf start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "ebuild": "npm run build && node_modules/.bin/build",
+    "winbuild": "npm run build && node_modules/.bin/build --win"
+  },
+  "description": "Auto translator for PoE chat messages as Electron app",
+  "homepage": "./",
+  "main": "public/electron.js",
+  "build": {
+    "productName": "Babel PoE",
+    "appId": "net.rawbird.babelpoe",
+    "electronVersion": "3.0.6",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    },
+    "files": [
+      "build/**/*",
+      "electron/*"
+    ]
+  },
+  "dependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.0.5"
+  },
+  "devDependencies": {
+    "foreman": "^3.0.1",
+    "electron": "^3.0.6",
+    "electron-builder": "^20.28.4"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
