@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+import testTranslate from './utils/translate'
+
 import Picker from './components/electron/Picker'
 
 class App extends Component {
   render() {
+    testTranslate()
     return (
       <div className="App">
         <header className="App-header">
