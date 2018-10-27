@@ -7,8 +7,23 @@ import testTranslate from './utils/translate'
 import Picker from './components/electron/Picker'
 
 class App extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      translatedText: 'translating...'
+    }
+  }
+  componentDidMount() {
+    testTranslate((err, translation) => {
+      if (err) {
+        throw new Error(err)
+      } else {
+        this.setState({ translatedText: translation.translatedText })
+      }
+    })
+  }
+
   render() {
-    testTranslate()
     return (
       <div className="App">
         <header className="App-header">
@@ -25,6 +40,7 @@ class App extends Component {
             It's me
           </a>
           <Picker />
+          <h2>{this.state.translatedText}</h2>
         </header>
       </div>
     )
