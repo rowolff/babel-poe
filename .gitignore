@@ -1,5 +1,5 @@
 # keyfiles
-./src/utils/keys.js
+src/utils/keys.js
 
 # electron dist
 dist
