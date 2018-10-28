@@ -6,24 +6,30 @@ class Filestream extends React.Component {
   constructor(props) {
     super()
     this.state = {
-      original: ''
+      original: '',
+      intervalId: null
     }
   }
 
-  intervalFunc(file) {
-    getLastLine(file, 1)
-      .then(lastLine => {
-        this.props.onLogUpdate(lastLine)
-        this.setState({ original: lastLine })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+  readFile(file) {
+    const intervalId = setInterval(() => {
+      getLastLine(file, 1)
+        .then(lastLine => {
+          this.props.onLogUpdate(lastLine)
+          this.setState({ original: lastLine })
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }, keys.POLLING_INTERVAL)
+    this.setState({ intervalId: intervalId })
   }
-  componentWillReceiveProps(nextProps) {
-    clearInterval(this.intervalFunc)
 
-    setInterval(this.intervalFunc(nextProps.file[0]), keys.POLLING_INTERVAL)
+  componentWillUpdate(nextProps) {
+    if (nextProps.file !== this.props.file) {
+      clearInterval(this.state.intervalId)
+      this.readFile(nextProps.file[0])
+    }
   }
 
   render() {
