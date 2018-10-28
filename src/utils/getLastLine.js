@@ -1,15 +1,6 @@
 const fs = window.require('fs')
-const path = window.require('path')
 const readline = window.require('readline')
 const Stream = window.require('stream')
-
-let lastMsg = ''
-
-export const lastChatMessage = callback => {
-  callback(lastMsg)
-}
-
-const chatFile = path.join(__dirname, '../../testlog.txt')
 
 const getLastLine = (fileName, minLength) => {
   let inStream = fs.createReadStream(fileName)
@@ -32,17 +23,4 @@ const getLastLine = (fileName, minLength) => {
   })
 }
 
-fs.watch(chatFile, (event, filename) => {
-  if (filename) {
-    getLastLine(chatFile, 1)
-      .then(lastLine => {
-        lastMsg = lastLine
-        console.log(lastLine)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  } else {
-    throw new Error('no file provided')
-  }
-})
+export default getLastLine

@@ -19,11 +19,11 @@ class Picker extends React.Component {
   handleClick(e) {
     dialog.showOpenDialog(
       {
-        properties: ['openFile', 'multiSelections']
+        properties: ['openFile']
       },
-      files => {
-        if (files !== undefined) {
-          this.setState({ selectedFile: files })
+      file => {
+        if (file !== undefined) {
+          this.props.onFileChange(file)
         }
       }
     )
@@ -33,9 +33,8 @@ class Picker extends React.Component {
     return (
       <div>
         <button style={buttonStyle} onClick={this.handleClick}>
-          Some random file picker
+          Select text file
         </button>
-        <h2>{this.state.selectedFile}</h2>
       </div>
     )
   }
