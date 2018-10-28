@@ -2,25 +2,29 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-import testTranslate from './utils/translate'
-
+import Filestream from './components/electron/Filestream'
 import Picker from './components/electron/Picker'
+import Translated from './components/electron/Translated'
 
 class App extends Component {
   constructor(props) {
     super()
     this.state = {
-      translatedText: 'translating...'
+      file: null,
+      original: 'no input',
+      translated: 'no input'
     }
+
+    this.handleFileChange = this.handleFileChange.bind(this)
+    this.handleLogUpdate = this.handleLogUpdate.bind(this)
   }
-  componentDidMount() {
-    testTranslate((err, translation) => {
-      if (err) {
-        throw new Error(err)
-      } else {
-        this.setState({ translatedText: translation.translatedText })
-      }
-    })
+
+  handleFileChange(file) {
+    this.setState({ file: file })
+  }
+
+  handleLogUpdate(line) {
+    this.setState({ original: line })
   }
 
   render() {
@@ -28,19 +32,15 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            This is some st0pid test if I can get react to work with electron...
-          </p>
-          <a
-            className="App-link"
-            href="http://rawbird.net"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            It's me
-          </a>
-          <Picker />
-          <h2>{this.state.translatedText}</h2>
+          <Picker onFileChange={this.handleFileChange} />
+          <Filestream
+            file={this.state.file}
+            onLogUpdate={this.handleLogUpdate}
+          />
+          <Translated
+            original={this.state.original}
+            translated={this.state.translated}
+          />
         </header>
       </div>
     )
