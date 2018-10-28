@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 import Filestream from './components/electron/Filestream'
 import Picker from './components/electron/Picker'
-import Translated from './components/electron/Translated'
+import TranslateQueue from './components/electron/TranslateQueue'
 
 class App extends Component {
   constructor(props) {
     super()
     this.state = {
       file: null,
-      original: 'no input',
-      translated: 'no input'
+      original: ''
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -31,16 +29,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <Picker onFileChange={this.handleFileChange} />
           <Filestream
             file={this.state.file}
             onLogUpdate={this.handleLogUpdate}
           />
-          <Translated
-            original={this.state.original}
-            translated={this.state.translated}
-          />
+          <TranslateQueue original={this.state.original} />
         </header>
       </div>
     )

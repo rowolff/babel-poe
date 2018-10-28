@@ -2,10 +2,6 @@ import React from 'react'
 
 const { dialog } = window.require('electron').remote
 
-const buttonStyle = {
-  margin: '10px'
-}
-
 class Picker extends React.Component {
   constructor(props) {
     super(props)
@@ -24,6 +20,7 @@ class Picker extends React.Component {
       file => {
         if (file !== undefined) {
           this.props.onFileChange(file)
+          this.setState({ selectedFile: file })
         }
       }
     )
@@ -32,9 +29,8 @@ class Picker extends React.Component {
   render() {
     return (
       <div>
-        <button style={buttonStyle} onClick={this.handleClick}>
-          Select text file
-        </button>
+        <p>File: {this.state.selectedFile}</p>
+        <button onClick={this.handleClick}>Select text file</button>
       </div>
     )
   }
