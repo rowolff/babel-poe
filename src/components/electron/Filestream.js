@@ -1,7 +1,6 @@
 import React from 'react'
 import getLastLine from '../../utils/getLastLine'
-
-const fs = window.require('fs')
+import { keys } from '../../utils/keys'
 
 class Filestream extends React.Component {
   constructor(props) {
@@ -11,20 +10,20 @@ class Filestream extends React.Component {
     }
   }
 
+  intervalFunc(file) {
+    getLastLine(file, 1)
+      .then(lastLine => {
+        this.props.onLogUpdate(lastLine)
+        this.setState({ original: lastLine })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
   componentWillReceiveProps(nextProps) {
-    fs.watch(nextProps.file[0], (event, filename) => {
-      if (filename) {
-        getLastLine(nextProps.file[0], 1)
-          .then(lastLine => {
-            this.props.onLogUpdate(lastLine)
-            this.setState({ original: lastLine })
-          })
-          .catch(err => {
-            console.error(err)
-          })
-      } else {
-      }
-    })
+    clearInterval(this.intervalFunc)
+
+    setInterval(this.intervalFunc(nextProps.file[0]), keys.POLLING_INTERVAL)
   }
 
   render() {
