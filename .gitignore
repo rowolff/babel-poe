@@ -5,6 +5,7 @@ src/utils/keys.js
 dist
 
 # Logs
+testlog.txt
 logs
 *.log
 npm-debug.log*
