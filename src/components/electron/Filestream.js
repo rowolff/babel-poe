@@ -6,7 +6,7 @@ class Filestream extends React.Component {
   constructor(props) {
     super()
     this.state = {
-      original: 'no input'
+      original: ''
     }
   }
 
@@ -29,7 +29,8 @@ class Filestream extends React.Component {
   render() {
     return (
       <div>
-        <h3>Original: {this.state.original}</h3>
+        <h4>Last message (untranslated):</h4>
+        <p>{this.state.original}</p>
       </div>
     )
   }
