@@ -27,13 +27,11 @@ class TranslateQueue extends React.Component {
         } else {
           const text = translation.translatedText
           const list = this.state.messageList
-          if (list[list.length - 1] !== text) {
-            if (list.length === queueSize) {
-              list.shift()
-            }
-            list.push(text)
-            this.setState({ messageList: list })
+          if (list.length === queueSize) {
+            list.shift()
           }
+          list.push(text)
+          this.setState({ messageList: list })
         }
       })
     }
