@@ -1,4 +1,9 @@
-const { app, BrowserWindow } = require('electron')
+const {
+  SAVE_FILEPATH_TO_STORAGE,
+  HANDLE_SAVE_FILEPATH_TO_STORAGE
+} = require('../src/utils/constants')
+
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -27,6 +32,13 @@ function createWindow() {
     win = null
   })
 }
+
+ipcMain.on(SAVE_FILEPATH_TO_STORAGE, () => {
+  win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
+    success: true,
+    message: 'saved path'
+  })
+})
 
 app.on('ready', createWindow)
 

@@ -1,4 +1,4 @@
-import TRANSLATE_KEY from './keys'
+const { TRANSLATE_KEY } = require('./keys')
 
 const googleTranslate = require('google-translate')(TRANSLATE_KEY)
 
