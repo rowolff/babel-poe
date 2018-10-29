@@ -36,7 +36,7 @@ function createWindow() {
 ipcMain.on(SAVE_FILEPATH_TO_STORAGE, () => {
   win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
     success: true,
-    message: 'saved path'
+    message: 'saved path is'
   })
 })
 
