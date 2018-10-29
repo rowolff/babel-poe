@@ -13,7 +13,7 @@ const style = {
 
 class TranslateQueue extends React.Component {
   constructor(props) {
-    super()
+    super(props)
     this.state = {
       messageList: []
     }

@@ -4,7 +4,7 @@ import { keys } from '../../utils/keys'
 
 class Filestream extends React.Component {
   constructor(props) {
-    super()
+    super(props)
     this.state = {
       original: '',
       intervalId: null
