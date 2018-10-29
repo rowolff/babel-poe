@@ -1,6 +1,6 @@
-import { keys } from './keys'
+const { TRANSLATE_KEY } = require('./keys')
 
-const googleTranslate = require('google-translate')(keys.TRANSLATE_KEY)
+const googleTranslate = require('google-translate')(TRANSLATE_KEY)
 
 const translate = async (input, callback) => {
   await googleTranslate.translate(input, 'en', callback)
