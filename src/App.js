@@ -7,7 +7,9 @@ import TranslateQueue from './components/electron/TranslateQueue'
 
 import {
   SAVE_FILEPATH_TO_STORAGE,
-  HANDLE_SAVE_FILEPATH_TO_STORAGE
+  HANDLE_SAVE_FILEPATH_TO_STORAGE,
+  FETCH_FILEPATH_FROM_STORAGE,
+  HANDLE_FETCH_FILEPATH_FROM_STORAGE
 } from './utils/constants'
 
 const { ipcRenderer } = window.require('electron')
@@ -19,16 +21,19 @@ class App extends Component {
       file: null,
       original: '',
       fileSaveSuccess: false,
-      fileSaveMessage: ''
+      fileSaveMessage: '',
+      fileSavePath: ''
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleLogUpdate = this.handleLogUpdate.bind(this)
     this.handleFilepathSaved = this.handleFilepathSaved.bind(this)
+    this.handleFilepathFetch = this.handleFilepathFetch.bind(this)
   }
 
   componentDidMount() {
     ipcRenderer.on(HANDLE_SAVE_FILEPATH_TO_STORAGE, this.handleFilepathSaved)
+    ipcRenderer.on(HANDLE_FETCH_FILEPATH_FROM_STORAGE, this.handleFilepathFetch)
   }
 
   componentWillUnmount() {
@@ -36,11 +41,25 @@ class App extends Component {
       HANDLE_SAVE_FILEPATH_TO_STORAGE,
       this.handleFilepathSaved
     )
+    ipcRenderer.removeListener(
+      HANDLE_FETCH_FILEPATH_FROM_STORAGE,
+      this.handleFilepathFetch
+    )
+  }
+
+  loadApplicationJson() {
+    ipcRenderer.send(FETCH_FILEPATH_FROM_STORAGE, 'ping')
+  }
+
+  handleFilepathFetch(event, data) {
+    const { path } = data
+    console.log(path)
+    this.setState({ fileSavePath: path })
   }
 
   handleFilepathSaved(event, data) {
-    const { success, message } = data
-    this.setState({ fileSaveSuccess: success, fileSaveMessage: message })
+    const { path, message } = data
+    this.setState({ fileSaveMessage: message, fileSavePath: path })
   }
 
   handleFileChange(file) {
@@ -53,14 +72,17 @@ class App extends Component {
   }
 
   render() {
-    const { fileSaveSuccess, fileSaveMessage } = this.state
+    const { fileSaveMessage, fileSavePath } = this.state
     return (
       <div className="App">
         <header className="App-header">
           <Picker onFileChange={this.handleFileChange} />
           <p>
-            {fileSaveMessage}: {fileSaveSuccess}
+            {fileSaveMessage}: {fileSavePath}
           </p>
+          <button onClick={this.loadApplicationJson}>
+            Try to load me from application.json
+          </button>
           <Filestream
             file={this.state.file}
             onLogUpdate={this.handleLogUpdate}
