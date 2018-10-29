@@ -1,6 +1,6 @@
 import React from 'react'
 import getLastLine from '../../utils/getLastLine'
-import { keys } from '../../utils/keys'
+import POLLING_INTERVAL from '../../utils/constants'
 
 class Filestream extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Filestream extends React.Component {
         .catch(err => {
           console.error(err)
         })
-    }, keys.POLLING_INTERVAL)
+    }, POLLING_INTERVAL)
     this.setState({ intervalId: intervalId })
   }
 
