@@ -1,11 +1,14 @@
 const {
   SAVE_FILEPATH_TO_STORAGE,
-  HANDLE_SAVE_FILEPATH_TO_STORAGE
+  HANDLE_SAVE_FILEPATH_TO_STORAGE,
+  FETCH_FILEPATH_FROM_STORAGE,
+  HANDLE_FETCH_FILEPATH_FROM_STORAGE
 } = require('../src/utils/constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const storage = require('electron-json-storage')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -33,10 +36,36 @@ function createWindow() {
   })
 }
 
-ipcMain.on(SAVE_FILEPATH_TO_STORAGE, () => {
-  win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
-    success: true,
-    message: 'saved path is'
+ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
+  storage.get('application', (err, data) => {
+    if (err) {
+      win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+        success: false,
+        message: 'could not fetch local file containing path'
+      })
+    }
+    win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+      success: true,
+      message: 'loaded path, it is: ',
+      path: data.path
+    })
+  })
+})
+
+ipcMain.on(SAVE_FILEPATH_TO_STORAGE, (event, arg) => {
+  storage.set('application', { path: arg }, err => {
+    if (err) {
+      win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
+        success: false,
+        message: 'could not save path: ',
+        path: arg
+      })
+    }
+    win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
+      success: true,
+      message: 'saved path is: ',
+      path: arg
+    })
   })
 })
 
