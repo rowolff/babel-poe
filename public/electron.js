@@ -3,7 +3,7 @@ const {
   HANDLE_SAVE_FILEPATH_TO_STORAGE,
   FETCH_FILEPATH_FROM_STORAGE,
   HANDLE_FETCH_FILEPATH_FROM_STORAGE
-} = require('../src/utils/constants')
+} = require('./constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')

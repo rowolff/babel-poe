@@ -12,8 +12,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "ebuild": "npm run build && node_modules/.bin/build",
-    "winbuild": "npm run build && node_modules/.bin/build --win",
+    "mac:build": "npm run build && node_modules/.bin/build --mac",
+    "win:build": "npm run build && node_modules/.bin/build --win",
     "format": "prettier --write '{src,server,webpack,mailserver}/**/*.{js,json}'",
     "lint": "eslint '{src,server,webpack,mailserver}/**/*.js' --fix"
   },
