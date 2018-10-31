@@ -55,6 +55,7 @@ class App extends Component {
     const { path } = data
     console.log(path)
     this.setState({ fileSavePath: path })
+    this.handleFileChange(path)
   }
 
   handleFilepathSaved(event, data) {

@@ -25,3 +25,7 @@ Reason is: I haven't figured out yet how to pass environment variables into the 
 Development: `npm run dev`
 Production build (Mac): `npm run mac:build`
 Production build (Windows): `npm run win:build`
+
+## massive thanks
+
+[Vladimir Setka](https://github.com/vsetka) for improving the file streaming

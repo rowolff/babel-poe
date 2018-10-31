@@ -1,5 +1,5 @@
 import React from 'react'
-import getLastLine from '../../utils/getLastLine'
+import tail from '../../utils/tail'
 import POLLING_INTERVAL from '../../utils/constants'
 
 class Filestream extends React.Component {
@@ -11,25 +11,24 @@ class Filestream extends React.Component {
     }
   }
 
-  readFile(file) {
-    const intervalId = setInterval(() => {
-      getLastLine(file, 1)
-        .then(lastLine => {
-          this.props.onLogUpdate(lastLine)
-          this.setState({ original: lastLine })
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    }, POLLING_INTERVAL)
-    this.setState({ intervalId: intervalId })
-  }
-
   componentWillUpdate(nextProps) {
     if (nextProps.file !== this.props.file) {
-      clearInterval(this.state.intervalId)
-      this.readFile(nextProps.file[0])
+      console.log('will call tail')
+      tail(nextProps.file[0]).start(
+        data => {
+          this.props.onLogUpdate(data)
+          this.setState({ original: data })
+        },
+        {
+          checkInterval: POLLING_INTERVAL,
+          startFromBeginning: false
+        }
+      )
     }
+  }
+
+  componentWillUnmount(props) {
+    tail(props.file[0].stop())
   }
 
   render() {
