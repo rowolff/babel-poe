@@ -55,7 +55,7 @@ ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
         if (data.path) {
           win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
             success: true,
-            message: 'loaded path, it is: ',
+            message: 'reading from settings: ',
             path: data.path
           })
         }
@@ -63,7 +63,7 @@ ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
     } else {
       win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
         success: false,
-        message: 'nothing saved yet'
+        message: 'Please select a log file.'
       })
     }
   })
@@ -80,7 +80,7 @@ ipcMain.on(SAVE_FILEPATH_TO_STORAGE, (event, arg) => {
     }
     win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
       success: true,
-      message: 'saved path is: ',
+      message: 'saved to settings: ',
       path: arg
     })
   })
