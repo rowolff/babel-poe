@@ -52,10 +52,13 @@ class App extends Component {
   }
 
   handleFilepathFetch(event, data) {
-    const { path } = data
-    console.log(path)
-    this.setState({ fileSavePath: path })
-    this.handleFileChange(path)
+    const { success, message, path } = data
+    if (success) {
+      this.setState({ fileSavePath: path })
+      this.handleFileChange(path)
+    } else {
+      console.log(message)
+    }
   }
 
   handleFilepathSaved(event, data) {
