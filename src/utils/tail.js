@@ -29,11 +29,7 @@ const tail = filePath => {
 
         if (previousSize < size) {
           if ((previousSize === 0 && startFromBeginning) || previousSize > 0) {
-            const chunk = readChunk(
-              filePath,
-              previousSize,
-              size - previousSize
-            ).toString('utf8')
+            const chunk = readChunk(filePath, previousSize, size - previousSize)
 
             onData(chunk.trim())
           }
