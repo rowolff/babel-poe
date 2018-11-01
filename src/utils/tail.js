@@ -24,7 +24,6 @@ const tail = filePath => {
       }
 
       fileChangeCheck = setInterval(() => {
-        console.log('interval ping')
         const { size } = statSync(filePath)
 
         if (previousSize < size) {

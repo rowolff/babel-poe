@@ -1,6 +1,6 @@
 import React from 'react'
 import tail from '../../utils/tail'
-import POLLING_INTERVAL from '../../utils/constants'
+import { POLLING_INTERVAL } from '../../utils/constants'
 
 class Filestream extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Filestream extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.file !== this.props.file) {
-      console.log('will call tail')
       tail(nextProps.file[0]).start(
         data => {
           this.props.onLogUpdate(data)
