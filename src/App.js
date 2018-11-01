@@ -34,6 +34,7 @@ class App extends Component {
   componentDidMount() {
     ipcRenderer.on(HANDLE_SAVE_FILEPATH_TO_STORAGE, this.handleFilepathSaved)
     ipcRenderer.on(HANDLE_FETCH_FILEPATH_FROM_STORAGE, this.handleFilepathFetch)
+    this.loadApplicationJson()
   }
 
   componentWillUnmount() {
