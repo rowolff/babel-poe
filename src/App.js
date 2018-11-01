@@ -9,7 +9,8 @@ import {
   SAVE_FILEPATH_TO_STORAGE,
   HANDLE_SAVE_FILEPATH_TO_STORAGE,
   FETCH_FILEPATH_FROM_STORAGE,
-  HANDLE_FETCH_FILEPATH_FROM_STORAGE
+  HANDLE_FETCH_FILEPATH_FROM_STORAGE,
+  DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
 
 const { ipcRenderer } = window.require('electron')
@@ -21,8 +22,7 @@ class App extends Component {
       file: null,
       original: '',
       fileSaveSuccess: false,
-      fileSaveMessage: '',
-      fileSavePath: ''
+      fileSaveMessage: ''
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -55,16 +55,17 @@ class App extends Component {
   handleFilepathFetch(event, data) {
     const { success, message, path } = data
     if (success) {
-      this.setState({ fileSavePath: path })
-      this.handleFileChange(path)
+      this.setState({ fileSaveMessage: message, file: path })
     } else {
-      console.log(message)
+      this.setState({
+        fileSaveMessage: message + DEFAULT_PICK_FILE_MESSAGE
+      })
     }
   }
 
   handleFilepathSaved(event, data) {
     const { path, message } = data
-    this.setState({ fileSaveMessage: message, fileSavePath: path })
+    this.setState({ fileSaveMessage: message, file: path })
   }
 
   handleFileChange(file) {
@@ -77,17 +78,14 @@ class App extends Component {
   }
 
   render() {
-    const { fileSaveMessage, fileSavePath } = this.state
+    const { fileSaveMessage, file } = this.state
     return (
       <div className="App">
         <header className="App-header">
-          <Picker onFileChange={this.handleFileChange} />
           <p>
-            {fileSaveMessage}: {fileSavePath}
+            {fileSaveMessage} {file}
           </p>
-          <button onClick={this.loadApplicationJson}>
-            Try to load me from application.json
-          </button>
+          <Picker onFileChange={this.handleFileChange} />
           <Filestream
             file={this.state.file}
             onLogUpdate={this.handleLogUpdate}
