@@ -2,10 +2,10 @@ import React from 'react'
 
 import MessageLine from './MessageLine'
 
-import Tail from '../../utils/tail'
-import messageFilter from '../../utils/filter'
+import Tail from '../utils/tail'
+import messageFilter from '../utils/filter'
 
-import { POLLING_INTERVAL } from '../../utils/constants'
+import { POLLING_INTERVAL } from '../utils/constants'
 
 const style = {
   display: 'block',

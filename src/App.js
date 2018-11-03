@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import Filestream from './components/electron/Filestream'
-import Picker from './components/electron/Picker'
-import TranslateQueue from './components/electron/TranslateQueue'
+import Filestream from './components/Filestream'
+import FilePicker from './components/FilePicker'
+import TranslateQueue from './components/TranslateQueue'
 
 import {
   SAVE_FILEPATH_TO_STORAGE,
@@ -88,7 +88,7 @@ class App extends Component {
           <p>
             {fileSaveMessage} {file}
           </p>
-          <Picker onFileChange={this.handleFileChange} />
+          <FilePicker onFileChange={this.handleFileChange} />
           <Filestream file={file} onLogUpdate={this.handleLogUpdate} />
           <TranslateQueue original={original} />
         </header>

@@ -1,7 +1,7 @@
 import React from 'react'
 import MessageLine from './MessageLine'
-import translate from '../../utils/translate'
-import { QUEUE_SIZE } from '../../utils/constants'
+import translate from '../utils/translate'
+import { QUEUE_SIZE } from '../utils/constants'
 
 const style = {
   display: 'block',
