@@ -23,9 +23,9 @@ class Filestream extends React.Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.file !== this.props.file) {
-      tail(nextProps.file[0]).start(
+  componentDidUpdate(prevProps) {
+    if (prevProps.file !== this.props.file) {
+      tail(this.props.file[0]).start(
         data => {
           const messageObject = messageFilter(data)
           if (messageObject.whisper) {
