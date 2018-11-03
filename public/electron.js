@@ -36,7 +36,7 @@ function createWindow() {
   })
 }
 
-ipcMain.on(FETCH_KEY_FROM_STORAGE, () => {
+ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
   storage.has('application', (err, hasKey) => {
     if (err) {
       win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
@@ -52,18 +52,12 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, () => {
             message: 'could not fetch local file containing path'
           })
         }
-        if (data.path) {
-          // todo: fix this!!!!
+        if (data[key]) {
           const returnObj = {}
-          const keyVal = data[path.toString()]
-          returnObj[path] = keyVal
+          returnObj[key] = data[key]
           returnObj.success = true
-          returnObj.message = 'reading from settings: '
-          win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
-            success: true,
-            message: 'returning key...',
-            path: data.path
-          })
+          returnObj.message = 'loaded from settings: '
+          win.send(HANDLE_FETCH_KEY_FROM_STORAGE, returnObj)
         }
       })
     } else {

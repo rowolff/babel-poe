@@ -33,31 +33,31 @@ class App extends Component {
 
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleLogUpdate = this.handleLogUpdate.bind(this)
-    this.handleKEYSaved = this.handleKEYSaved.bind(this)
-    this.handleKEYFetch = this.handleKEYFetch.bind(this)
+    this.handleKeySaved = this.handleKeySaved.bind(this)
+    this.handleKeyFetch = this.handleKeyFetch.bind(this)
     this.handleLanguageChange = this.handleLanguageChange.bind(this)
   }
 
   componentDidMount() {
-    ipcRenderer.on(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKEYSaved)
-    ipcRenderer.on(HANDLE_FETCH_KEY_FROM_STORAGE, this.handleKEYFetch)
+    ipcRenderer.on(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKeySaved)
+    ipcRenderer.on(HANDLE_FETCH_KEY_FROM_STORAGE, this.handleKeyFetch)
     this.loadApplicationJson()
   }
 
   componentWillUnmount() {
-    ipcRenderer.removeListener(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKEYSaved)
+    ipcRenderer.removeListener(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKeySaved)
     ipcRenderer.removeListener(
       HANDLE_FETCH_KEY_FROM_STORAGE,
-      this.handleKEYFetch
+      this.handleKeyFetch
     )
   }
 
   loadApplicationJson() {
     console.log('calling ipcRenderer')
-    ipcRenderer.send(FETCH_KEY_FROM_STORAGE, 'ping')
+    ipcRenderer.send(FETCH_KEY_FROM_STORAGE, 'path')
   }
 
-  handleKEYFetch(event, data) {
+  handleKeyFetch(event, data) {
     const { success, message, path } = data
     console.log(message)
     if (success) {
@@ -69,7 +69,7 @@ class App extends Component {
     }
   }
 
-  handleKEYSaved(event, data) {
+  handleKeySaved(event, data) {
     const { path, message } = data
     this.setState({ fileSaveMessage: message, file: path })
   }
