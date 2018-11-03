@@ -1,7 +1,7 @@
 import React from 'react'
 
 const nameStyle = {
-  color: '#AAAAFF'
+  color: '#CEC59F'
 }
 
 class MessageLine extends React.Component {
