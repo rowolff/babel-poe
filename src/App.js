@@ -124,7 +124,10 @@ class App extends Component {
             targetLanguage={this.state.targetLanguage}
             detectedLanguage={this.state.detectedLanguage}
           />
-          <ReplyBox replyToLanguage={this.state.detectedLanguage} />
+          <ReplyBox
+            replyToLanguage={this.state.detectedLanguage}
+            recipient={this.state.original.user ? this.state.original.user : ''}
+          />
         </header>
       </div>
     )

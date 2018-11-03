@@ -1,5 +1,8 @@
 import React from 'react'
+import ReplyTranslation from './ReplyTranslation'
 import { translate } from '../utils/translate'
+
+const { clipboard } = window.require('electron')
 
 class ReplyBox extends React.Component {
   constructor(props) {
@@ -25,18 +28,29 @@ class ReplyBox extends React.Component {
           if (err) {
             console.error('cannot translate')
           }
-          this.setState({ translatedReply: translation.translatedText })
+          this.setState({
+            translatedReply: translation.translatedText
+          })
+          clipboard.writeText(
+            '@' + this.props.recipient + ' ' + translation.translatedText
+          )
+          document.getElementById('replyBox').value = ''
         }
       )
     }
   }
 
   render() {
+    const { translatedReply } = this.state
     return (
       <div>
-        <input onChange={this.handleTextChange} />
-        <button onClick={this.handleReply}>REPLY</button>
-        <p>{this.state.translatedReply}</p>
+        <input
+          id="replyBox"
+          placeholder="reply here"
+          onChange={this.handleTextChange}
+        />
+        <button onClick={this.handleReply}>Copy reply to clipboard</button>
+        {translatedReply ? <ReplyTranslation reply={translatedReply} /> : ''}
       </div>
     )
   }
