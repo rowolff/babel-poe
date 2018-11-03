@@ -111,7 +111,10 @@ class App extends Component {
             <DetectedLanguage language={this.state.detectedLanguage} />
           </Whisper>
           <LanguagePicker onLanguageChange={this.handleLanguageChange} />
-          <TranslateQueue original={original} />
+          <TranslateQueue
+            original={original}
+            targetLanguage={this.state.targetLanguage}
+          />
         </header>
       </div>
     )

@@ -21,24 +21,28 @@ class TranslateQueue extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.original !== this.props.original) {
-      translate(this.props.original.message, (err, translation) => {
-        if (err) {
-          console.error(err)
-        } else {
-          const text = translation.translatedText
-          const list = this.state.messageList
-          this.setState({ currentMessage: this.props.original })
-          if (list.length === QUEUE_SIZE) {
-            list.shift()
+      translate(
+        this.props.original.message,
+        this.props.targetLanguage,
+        (err, translation) => {
+          if (err) {
+            console.error(err)
+          } else {
+            const text = translation.translatedText
+            const list = this.state.messageList
+            this.setState({ currentMessage: this.props.original })
+            if (list.length === QUEUE_SIZE) {
+              list.shift()
+            }
+            list.push({
+              guild: this.props.original.guild,
+              user: this.props.original.user,
+              message: text
+            })
+            this.setState({ messageList: list })
           }
-          list.push({
-            guild: this.props.original.guild,
-            user: this.props.original.user,
-            message: text
-          })
-          this.setState({ messageList: list })
         }
-      })
+      )
     }
   }
 
