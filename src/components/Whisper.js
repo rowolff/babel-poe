@@ -7,13 +7,6 @@ import messageFilter from '../utils/filter'
 
 import { POLLING_INTERVAL } from '../utils/constants'
 
-const style = {
-  display: 'block',
-  textAlign: 'left',
-  listStyleType: 'none',
-  justifyContent: 'flex-start'
-}
-
 class Whisper extends React.Component {
   constructor(props) {
     super(props)
@@ -58,7 +51,7 @@ class Whisper extends React.Component {
     return (
       <div>
         <h4>Last whisper (untranslated):</h4>
-        <ul style={style}>
+        <ul>
           <MessageLine message={this.state.original} key="original" />
         </ul>
         <p>{this.props.children}</p>

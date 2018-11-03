@@ -107,14 +107,12 @@ class App extends Component {
     const { fileSaveMessage, file, original } = this.state
     return (
       <div className="App">
-        <header className="App-header">
-          <p>
-            {fileSaveMessage} {file}
-          </p>
-          <FilePicker onFileChange={this.handleFileChange} />
+        <div className={file ? '' : 'disabled'}>
+          <hr />
           <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
             <DetectedLanguage language={this.state.detectedLanguage} />
           </Whisper>
+          <hr />
           <LanguagePicker
             onLanguageChange={this.handleLanguageChange}
             targetLanguage={this.state.targetLanguage}
@@ -124,11 +122,17 @@ class App extends Component {
             targetLanguage={this.state.targetLanguage}
             detectedLanguage={this.state.detectedLanguage}
           />
+          <hr />
           <ReplyBox
             replyToLanguage={this.state.detectedLanguage}
             recipient={this.state.original.user ? this.state.original.user : ''}
           />
-        </header>
+          <hr />
+        </div>
+        <p className={file ? '' : 'warning'}>
+          {fileSaveMessage} {file}
+        </p>
+        <FilePicker onFileChange={this.handleFileChange} file={file} />
       </div>
     )
   }

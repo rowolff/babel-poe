@@ -1,9 +1,5 @@
 import React from 'react'
 
-const nameStyle = {
-  color: '#CEC59F'
-}
-
 class MessageLine extends React.Component {
   render() {
     const messageObj =
@@ -14,7 +10,7 @@ class MessageLine extends React.Component {
       <li id={this.props.key}>
         {messageObj ? (
           <p>
-            <span style={nameStyle}>
+            <span className="highlight">
               &lt;
               {messageObj.guild}
               &gt; {messageObj.user}:

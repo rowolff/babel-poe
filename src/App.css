@@ -1,32 +1,104 @@
+@font-face {
+  font-family: 'Fontin';
+  font-style: normal;
+  font-weight: 300;
+  src: './assets/Fontin-Regular.ttf';
+}
+
+body {
+  background-color: #100607;
+  background-image: url(./assets/Path_of_Exile_Wallpaper_1.jpg);
+  background-size: contain;
+}
+
+button,
+select {
+  font-family: 'Fontin';
+  color: #cec59f;
+  background-color: #78360d;
+  border-color: #cec59f;
+  border-radius: 7px;
+}
+
+input,
+option {
+  font-family: 'Fontin';
+  color: #100607;
+  background-color: #cec59f;
+  border-radius: 7px;
+}
+
+option:checked,
+option:hover {
+  background-color: #100607;
+  color: #cec59f;
+}
+
+ul {
+  display: block;
+  text-align: left;
+  list-style-type: none;
+  justify-content: flex-start;
+  font-size: 12pt;
+}
+
+p {
+  font-size: 12pt;
+}
+
+hr {
+  border-color: #6d6a65;
+  border-width: 2px;
+  width: 100%;
+}
+
 .App {
   text-align: left;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #100607;
-  min-height: 100vh;
+  margin-top: 115px;
+  font-family: 'Fontin';
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: left;
-  font-size: calc(10px + 2vmin);
+  font-size: 14pt;
   color: #6d6a65;
   padding: 10px;
+  background-blend-mode: darken;
 }
 
-.App-link {
-  color: #61dafb;
+.App::after {
+  content: '';
+  background: linear-gradient(#100607, #000000);
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.highlight {
+  color: #cec59f;
+}
+
+.replybox {
+  width: 60vw;
+}
+
+.fileready {
+  background-color: #6d6a65;
+  border-color: #6d6a65;
+}
+
+.tiny {
+  font-size: 10pt;
+}
+
+.disabled {
+  display: none;
+}
+
+.warning {
+  color: #ffffff;
 }

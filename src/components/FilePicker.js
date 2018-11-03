@@ -25,7 +25,12 @@ class Picker extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>Select Client.txt location</button>
+        <button
+          className={this.props.file ? 'fileready' : ''}
+          onClick={this.handleClick}
+        >
+          {this.props.file ? 'Change file' : 'Select Client.txt location'}
+        </button>
       </div>
     )
   }
