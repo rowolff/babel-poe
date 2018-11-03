@@ -9,10 +9,10 @@ import TranslateQueue from './components/TranslateQueue'
 import { detectLanguage } from './utils/translate'
 
 import {
-  SAVE_FILEPATH_TO_STORAGE,
-  HANDLE_SAVE_FILEPATH_TO_STORAGE,
-  FETCH_FILEPATH_FROM_STORAGE,
-  HANDLE_FETCH_FILEPATH_FROM_STORAGE,
+  SAVE_KEY_TO_STORAGE,
+  HANDLE_SAVE_KEY_TO_STORAGE,
+  FETCH_KEY_FROM_STORAGE,
+  HANDLE_FETCH_KEY_FROM_STORAGE,
   DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
 import DetectedLanguage from './components/DetectedLanguage'
@@ -33,34 +33,33 @@ class App extends Component {
 
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleLogUpdate = this.handleLogUpdate.bind(this)
-    this.handleFilepathSaved = this.handleFilepathSaved.bind(this)
-    this.handleFilepathFetch = this.handleFilepathFetch.bind(this)
+    this.handleKEYSaved = this.handleKEYSaved.bind(this)
+    this.handleKEYFetch = this.handleKEYFetch.bind(this)
     this.handleLanguageChange = this.handleLanguageChange.bind(this)
   }
 
   componentDidMount() {
-    ipcRenderer.on(HANDLE_SAVE_FILEPATH_TO_STORAGE, this.handleFilepathSaved)
-    ipcRenderer.on(HANDLE_FETCH_FILEPATH_FROM_STORAGE, this.handleFilepathFetch)
+    ipcRenderer.on(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKEYSaved)
+    ipcRenderer.on(HANDLE_FETCH_KEY_FROM_STORAGE, this.handleKEYFetch)
     this.loadApplicationJson()
   }
 
   componentWillUnmount() {
+    ipcRenderer.removeListener(HANDLE_SAVE_KEY_TO_STORAGE, this.handleKEYSaved)
     ipcRenderer.removeListener(
-      HANDLE_SAVE_FILEPATH_TO_STORAGE,
-      this.handleFilepathSaved
-    )
-    ipcRenderer.removeListener(
-      HANDLE_FETCH_FILEPATH_FROM_STORAGE,
-      this.handleFilepathFetch
+      HANDLE_FETCH_KEY_FROM_STORAGE,
+      this.handleKEYFetch
     )
   }
 
   loadApplicationJson() {
-    ipcRenderer.send(FETCH_FILEPATH_FROM_STORAGE, 'ping')
+    console.log('calling ipcRenderer')
+    ipcRenderer.send(FETCH_KEY_FROM_STORAGE, 'ping')
   }
 
-  handleFilepathFetch(event, data) {
+  handleKEYFetch(event, data) {
     const { success, message, path } = data
+    console.log(message)
     if (success) {
       this.setState({ fileSaveMessage: message, file: path })
     } else {
@@ -70,14 +69,14 @@ class App extends Component {
     }
   }
 
-  handleFilepathSaved(event, data) {
+  handleKEYSaved(event, data) {
     const { path, message } = data
     this.setState({ fileSaveMessage: message, file: path })
   }
 
   handleFileChange(file) {
     this.setState({ file: file })
-    ipcRenderer.send(SAVE_FILEPATH_TO_STORAGE, file)
+    ipcRenderer.send(SAVE_KEY_TO_STORAGE, { path: file })
   }
 
   handleLanguageChange(e) {

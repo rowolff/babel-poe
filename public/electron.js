@@ -1,8 +1,8 @@
 const {
-  SAVE_FILEPATH_TO_STORAGE,
-  HANDLE_SAVE_FILEPATH_TO_STORAGE,
-  FETCH_FILEPATH_FROM_STORAGE,
-  HANDLE_FETCH_FILEPATH_FROM_STORAGE
+  SAVE_KEY_TO_STORAGE,
+  HANDLE_SAVE_KEY_TO_STORAGE,
+  FETCH_KEY_FROM_STORAGE,
+  HANDLE_FETCH_KEY_FROM_STORAGE
 } = require('./constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
@@ -36,10 +36,10 @@ function createWindow() {
   })
 }
 
-ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
+ipcMain.on(FETCH_KEY_FROM_STORAGE, () => {
   storage.has('application', (err, hasKey) => {
     if (err) {
-      win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+      win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
         message: 'an error occured with storage library'
       })
@@ -47,21 +47,27 @@ ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
     if (hasKey) {
       storage.get('application', (err, data) => {
         if (err) {
-          win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+          win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
             success: false,
             message: 'could not fetch local file containing path'
           })
         }
         if (data.path) {
-          win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+          // todo: fix this!!!!
+          const returnObj = {}
+          const keyVal = data[path.toString()]
+          returnObj[path] = keyVal
+          returnObj.success = true
+          returnObj.message = 'reading from settings: '
+          win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
             success: true,
-            message: 'reading from settings: ',
+            message: 'returning key...',
             path: data.path
           })
         }
       })
     } else {
-      win.send(HANDLE_FETCH_FILEPATH_FROM_STORAGE, {
+      win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
         message: 'Please select a log file.'
       })
@@ -69,20 +75,17 @@ ipcMain.on(FETCH_FILEPATH_FROM_STORAGE, () => {
   })
 })
 
-ipcMain.on(SAVE_FILEPATH_TO_STORAGE, (event, arg) => {
-  storage.set('application', { path: arg }, err => {
+ipcMain.on(SAVE_KEY_TO_STORAGE, (event, pair) => {
+  const returnObj = Object.assign({}, pair)
+  storage.set('application', pair, err => {
     if (err) {
-      win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
-        success: false,
-        message: 'could not save path: ',
-        path: arg
-      })
+      returnObj.success = false
+      returnObj.message = 'could not save key: '
+      win.send(HANDLE_SAVE_KEY_TO_STORAGE, returnObj)
     }
-    win.send(HANDLE_SAVE_FILEPATH_TO_STORAGE, {
-      success: true,
-      message: 'saved to settings: ',
-      path: arg
-    })
+    returnObj.success = true
+    returnObj.message = 'saved to settings: '
+    win.send(HANDLE_SAVE_KEY_TO_STORAGE, returnObj)
   })
 })
 
