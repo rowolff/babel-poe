@@ -20,7 +20,7 @@ class TranslateQueue extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.original !== this.props.original) {
-      translate(this.props.original, (err, translation) => {
+      translate(this.props.original.message, (err, translation) => {
         if (err) {
           console.error(err)
         } else {

@@ -4,7 +4,6 @@ import './App.css'
 import Filestream from './components/electron/Filestream'
 import Picker from './components/electron/Picker'
 import TranslateQueue from './components/electron/TranslateQueue'
-import messageFilter from './utils/filter'
 
 import {
   SAVE_FILEPATH_TO_STORAGE,
@@ -74,11 +73,10 @@ class App extends Component {
     ipcRenderer.send(SAVE_FILEPATH_TO_STORAGE, file)
   }
 
-  handleLogUpdate(line) {
-    const messageObject = messageFilter(line)
+  handleLogUpdate(obj) {
     // todo: filter messages of own language
-    if (messageObject.whisper) {
-      this.setState({ original: messageObject.message })
+    if (obj.whisper) {
+      this.setState({ original: obj })
     }
   }
 

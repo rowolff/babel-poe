@@ -1,6 +1,7 @@
 import React from 'react'
 import tail from '../../utils/tail'
 import { POLLING_INTERVAL } from '../../utils/constants'
+import messageFilter from '../../utils/filter'
 
 class Filestream extends React.Component {
   constructor(props) {
@@ -15,8 +16,11 @@ class Filestream extends React.Component {
     if (nextProps.file !== this.props.file) {
       tail(nextProps.file[0]).start(
         data => {
-          this.props.onLogUpdate(data)
-          this.setState({ original: data })
+          const messageObject = messageFilter(data)
+          if (messageObject.whisper) {
+            this.props.onLogUpdate(messageObject)
+            this.setState({ original: messageObject })
+          }
         },
         {
           checkInterval: POLLING_INTERVAL,
@@ -34,7 +38,7 @@ class Filestream extends React.Component {
     return (
       <div>
         <h4>Last whisper (untranslated):</h4>
-        <p>{this.state.original}</p>
+        <p>{this.state.original.message}</p>
       </div>
     )
   }
