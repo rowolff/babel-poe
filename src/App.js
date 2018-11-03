@@ -20,7 +20,7 @@ class App extends Component {
     super(props)
     this.state = {
       file: null,
-      original: '',
+      original: {},
       fileSaveSuccess: false,
       fileSaveMessage: ''
     }

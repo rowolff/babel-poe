@@ -1,13 +1,24 @@
 import React from 'react'
+
+import MessageLine from './MessageLine'
+
 import tail from '../../utils/tail'
-import { POLLING_INTERVAL } from '../../utils/constants'
 import messageFilter from '../../utils/filter'
+
+import { POLLING_INTERVAL } from '../../utils/constants'
+
+const style = {
+  display: 'block',
+  textAlign: 'left',
+  listStyleType: 'none',
+  justifyContent: 'flex-start'
+}
 
 class Filestream extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      original: '',
+      original: {},
       intervalId: null
     }
   }
@@ -38,7 +49,9 @@ class Filestream extends React.Component {
     return (
       <div>
         <h4>Last whisper (untranslated):</h4>
-        <p>{this.state.original.message}</p>
+        <ul style={style}>
+          <MessageLine message={this.state.original} key="original" />
+        </ul>
       </div>
     )
   }
