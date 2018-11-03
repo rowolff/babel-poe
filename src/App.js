@@ -20,7 +20,7 @@ class App extends Component {
     super(props)
     this.state = {
       file: null,
-      original: '',
+      original: {},
       fileSaveSuccess: false,
       fileSaveMessage: ''
     }
@@ -73,8 +73,11 @@ class App extends Component {
     ipcRenderer.send(SAVE_FILEPATH_TO_STORAGE, file)
   }
 
-  handleLogUpdate(line) {
-    this.setState({ original: line })
+  handleLogUpdate(obj) {
+    // todo: filter messages of own language
+    if (obj.whisper) {
+      this.setState({ original: obj })
+    }
   }
 
   render() {

@@ -1,8 +1,7 @@
 import React from 'react'
-import Message from './Message'
+import MessageLine from './MessageLine'
 import translate from '../../utils/translate'
-
-const queueSize = 5
+import { QUEUE_SIZE } from '../../utils/constants'
 
 const style = {
   display: 'block',
@@ -15,22 +14,28 @@ class TranslateQueue extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentMessage: {},
       messageList: []
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.original !== this.props.original) {
-      translate(this.props.original, (err, translation) => {
+      translate(this.props.original.message, (err, translation) => {
         if (err) {
           console.error(err)
         } else {
           const text = translation.translatedText
           const list = this.state.messageList
-          if (list.length === queueSize) {
+          this.setState({ currentMessage: this.props.original })
+          if (list.length === QUEUE_SIZE) {
             list.shift()
           }
-          list.push(text)
+          list.push({
+            guild: this.props.original.guild,
+            user: this.props.original.user,
+            message: text
+          })
           this.setState({ messageList: list })
         }
       })
@@ -40,10 +45,10 @@ class TranslateQueue extends React.Component {
   render() {
     return (
       <div>
-        <h4>Last {queueSize} Messages (translated):</h4>
+        <h4>Last {QUEUE_SIZE} whispers (translated):</h4>
         <ul style={style}>
-          {this.state.messageList.map((message, index) => (
-            <Message message={message} key={index} />
+          {this.state.messageList.map((messageObj, index) => (
+            <MessageLine message={messageObj} key={index} />
           ))}
         </ul>
       </div>
