@@ -14,13 +14,15 @@ class TranslateQueue extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentMessage: {},
       messageList: []
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.original !== this.props.original) {
+    if (
+      prevProps.original !== this.props.original &&
+      this.props.detectedLanguage !== this.props.targetLanguage
+    ) {
       translate(
         this.props.original.message,
         this.props.targetLanguage,
@@ -30,7 +32,6 @@ class TranslateQueue extends React.Component {
           } else {
             const text = translation.translatedText
             const list = this.state.messageList
-            this.setState({ currentMessage: this.props.original })
             if (list.length === QUEUE_SIZE) {
               list.shift()
             }

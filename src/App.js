@@ -91,16 +91,14 @@ class App extends Component {
   }
 
   handleLogUpdate(obj) {
-    // todo: filter messages of own language (#43)
     if (obj.whisper) {
       detectLanguage(obj.message, (err, detection) => {
         if (err) {
           console.error(err)
         } else {
-          this.setState({ detectedLanguage: detection.language })
+          this.setState({ detectedLanguage: detection.language, original: obj })
         }
       })
-      this.setState({ original: obj })
     }
   }
 
@@ -123,6 +121,7 @@ class App extends Component {
           <TranslateQueue
             original={original}
             targetLanguage={this.state.targetLanguage}
+            detectedLanguage={this.state.detectedLanguage}
           />
         </header>
       </div>
