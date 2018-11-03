@@ -21,7 +21,7 @@ module.exports = {
     { bg: 'Bulgarian' },
     { ca: 'Catalan' },
     { ce: 'Cebuanob' },
-    { 'zh-CN': 'Chinese' },
+    { 'zh-CN': 'Chinese (Simplified)' },
     { 'zh-TW': 'Chinese' },
     { co: 'Corsican' },
     { hr: 'Croatian' },

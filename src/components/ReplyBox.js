@@ -46,6 +46,7 @@ class ReplyBox extends React.Component {
       <div>
         <input
           id="replyBox"
+          className="replybox"
           placeholder="reply here"
           onChange={this.handleTextChange}
         />
