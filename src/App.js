@@ -6,6 +6,8 @@ import FilePicker from './components/FilePicker'
 import LanguagePicker from './components/LanguagePicker'
 import TranslateQueue from './components/TranslateQueue'
 
+import { detectLanguage } from './utils/translate'
+
 import {
   SAVE_FILEPATH_TO_STORAGE,
   HANDLE_SAVE_FILEPATH_TO_STORAGE,
@@ -85,6 +87,13 @@ class App extends Component {
   handleLogUpdate(obj) {
     // todo: filter messages of own language (#43)
     if (obj.whisper) {
+      detectLanguage(obj.message, (err, detection) => {
+        if (err) {
+          console.error(err)
+        } else {
+          this.setState({ detectedLanguage: detection.language })
+        }
+      })
       this.setState({ original: obj })
     }
   }
