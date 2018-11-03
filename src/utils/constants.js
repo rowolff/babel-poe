@@ -6,5 +6,6 @@ module.exports = {
   POLLING_INTERVAL: 1000,
   DEFAULT_PICK_FILE_MESSAGE:
     ' - It is usually located in C:\\Program Files (x86)\\Grinding Gear Games\\Path of Exile\\logs\\Client.txt',
-  QUEUE_SIZE: 5
+  QUEUE_SIZE: 5,
+  LANGUAGES: [{ en: 'English' }, { es: 'Spanish' }, { de: 'German' }]
 }

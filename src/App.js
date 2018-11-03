@@ -3,6 +3,7 @@ import './App.css'
 
 import Filestream from './components/Filestream'
 import FilePicker from './components/FilePicker'
+import LanguagePicker from './components/LanguagePicker'
 import TranslateQueue from './components/TranslateQueue'
 
 import {
@@ -22,13 +23,16 @@ class App extends Component {
       file: null,
       original: {},
       fileSaveSuccess: false,
-      fileSaveMessage: ''
+      fileSaveMessage: '',
+      targetLanguage: 'en',
+      detectedLanguage: null
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleLogUpdate = this.handleLogUpdate.bind(this)
     this.handleFilepathSaved = this.handleFilepathSaved.bind(this)
     this.handleFilepathFetch = this.handleFilepathFetch.bind(this)
+    this.handleLanguageChange = this.handleLanguageChange.bind(this)
   }
 
   componentDidMount() {
@@ -73,6 +77,10 @@ class App extends Component {
     ipcRenderer.send(SAVE_FILEPATH_TO_STORAGE, file)
   }
 
+  handleLanguageChange(e) {
+    this.setState({ targetLanguage: e.target.value })
+  }
+
   handleLogUpdate(obj) {
     // todo: filter messages of own language (#43)
     if (obj.whisper) {
@@ -90,6 +98,7 @@ class App extends Component {
           </p>
           <FilePicker onFileChange={this.handleFileChange} />
           <Filestream file={file} onLogUpdate={this.handleLogUpdate} />
+          <LanguagePicker onLanguageChange={this.handleLanguageChange} />
           <TranslateQueue original={original} />
         </header>
       </div>
