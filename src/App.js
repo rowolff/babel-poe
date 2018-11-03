@@ -5,6 +5,7 @@ import Whisper from './components/Whisper'
 import FilePicker from './components/FilePicker'
 import LanguagePicker from './components/LanguagePicker'
 import TranslateQueue from './components/TranslateQueue'
+import ReplyBox from './components/ReplyBox'
 
 import { detectLanguage } from './utils/translate'
 
@@ -123,6 +124,7 @@ class App extends Component {
             targetLanguage={this.state.targetLanguage}
             detectedLanguage={this.state.detectedLanguage}
           />
+          <ReplyBox replyToLanguage={this.state.detectedLanguage} />
         </header>
       </div>
     )
