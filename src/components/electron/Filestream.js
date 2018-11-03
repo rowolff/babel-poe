@@ -2,7 +2,7 @@ import React from 'react'
 
 import MessageLine from './MessageLine'
 
-import tail from '../../utils/tail'
+import Tail from '../../utils/tail'
 import messageFilter from '../../utils/filter'
 
 import { POLLING_INTERVAL } from '../../utils/constants'
@@ -19,13 +19,20 @@ class Filestream extends React.Component {
     super(props)
     this.state = {
       original: {},
-      intervalId: null
+      prevFileInstance: null
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.file !== this.props.file) {
-      tail(this.props.file[0]).start(
+      const Filetail = new Tail(this.props.file[0])
+      // because we use a conditon we can:
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ prevFileInstance: Filetail })
+      if (prevProps.file) {
+        this.state.prevFileInstance.stop()
+      }
+      Filetail.start(
         data => {
           const messageObject = messageFilter(data)
           if (messageObject.whisper) {
@@ -41,8 +48,8 @@ class Filestream extends React.Component {
     }
   }
 
-  componentWillUnmount(props) {
-    tail(props.file[0].stop())
+  componentWillUnmount() {
+    this.state.prevFileInstance.stop()
   }
 
   render() {
