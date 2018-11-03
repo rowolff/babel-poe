@@ -74,14 +74,14 @@ class App extends Component {
   }
 
   handleLogUpdate(obj) {
-    // todo: filter messages of own language
+    // todo: filter messages of own language (#43)
     if (obj.whisper) {
       this.setState({ original: obj })
     }
   }
 
   render() {
-    const { fileSaveMessage, file } = this.state
+    const { fileSaveMessage, file, original } = this.state
     return (
       <div className="App">
         <header className="App-header">
@@ -89,11 +89,8 @@ class App extends Component {
             {fileSaveMessage} {file}
           </p>
           <Picker onFileChange={this.handleFileChange} />
-          <Filestream
-            file={this.state.file}
-            onLogUpdate={this.handleLogUpdate}
-          />
-          <TranslateQueue original={this.state.original} />
+          <Filestream file={file} onLogUpdate={this.handleLogUpdate} />
+          <TranslateQueue original={original} />
         </header>
       </div>
     )

@@ -10,7 +10,7 @@ const readChunk = (filePath, position, length) => {
   return buffer.slice(0, bytesRead).toString('utf8')
 }
 
-const Tail = filePath => {
+module.exports = filePath => {
   let previousSize = 0
   let fileChangeCheck = null
 
@@ -44,5 +44,3 @@ const Tail = filePath => {
     }
   }
 }
-
-module.exports = Tail

@@ -19,19 +19,19 @@ class Filestream extends React.Component {
     super(props)
     this.state = {
       original: {},
-      prevFileInstance: null
+      currentFileInstance: null
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.file !== this.props.file) {
-      const Filetail = new Tail(this.props.file[0])
-      // because we use a conditon we can:
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ prevFileInstance: Filetail })
+      const Filetail = Tail(this.props.file[0])
       if (prevProps.file) {
-        this.state.prevFileInstance.stop()
+        this.state.currentFileInstance.stop()
       }
+      // because we use a conditon (props have changed) we can:
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ currentFileInstance: Filetail })
       Filetail.start(
         data => {
           const messageObject = messageFilter(data)
@@ -49,7 +49,9 @@ class Filestream extends React.Component {
   }
 
   componentWillUnmount() {
-    this.state.prevFileInstance.stop()
+    if (this.state.currentFileInstance) {
+      this.state.currentFileInstance.stop()
+    }
   }
 
   render() {
