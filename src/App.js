@@ -53,15 +53,19 @@ class App extends Component {
   }
 
   loadApplicationJson() {
-    console.log('calling ipcRenderer')
     ipcRenderer.send(FETCH_KEY_FROM_STORAGE, 'path')
+    ipcRenderer.send(FETCH_KEY_FROM_STORAGE, 'lang')
   }
 
   handleKeyFetch(event, data) {
-    const { success, message, path } = data
-    console.log(message)
+    const { success, message, path, lang } = data
     if (success) {
-      this.setState({ fileSaveMessage: message, file: path })
+      if (path) {
+        this.setState({ fileSaveMessage: message, file: path })
+      }
+      if (lang) {
+        this.setState({ targetLanguage: lang })
+      }
     } else {
       this.setState({
         fileSaveMessage: message + DEFAULT_PICK_FILE_MESSAGE
@@ -71,7 +75,9 @@ class App extends Component {
 
   handleKeySaved(event, data) {
     const { path, message } = data
-    this.setState({ fileSaveMessage: message, file: path })
+    if (path) {
+      this.setState({ fileSaveMessage: message, file: path })
+    }
   }
 
   handleFileChange(file) {
@@ -80,6 +86,7 @@ class App extends Component {
   }
 
   handleLanguageChange(e) {
+    ipcRenderer.send(SAVE_KEY_TO_STORAGE, { lang: e.target.value })
     this.setState({ targetLanguage: e.target.value })
   }
 

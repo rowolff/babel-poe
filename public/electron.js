@@ -37,7 +37,7 @@ function createWindow() {
 }
 
 ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
-  storage.has('application', (err, hasKey) => {
+  storage.has(key, (err, hasKey) => {
     if (err) {
       win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
@@ -45,7 +45,7 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
       })
     }
     if (hasKey) {
-      storage.get('application', (err, data) => {
+      storage.get(key, (err, data) => {
         if (err) {
           win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
             success: false,
@@ -71,7 +71,7 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
 
 ipcMain.on(SAVE_KEY_TO_STORAGE, (event, pair) => {
   const returnObj = Object.assign({}, pair)
-  storage.set('application', pair, err => {
+  storage.set(Object.keys(pair)[0], pair, err => {
     if (err) {
       returnObj.success = false
       returnObj.message = 'could not save key: '
