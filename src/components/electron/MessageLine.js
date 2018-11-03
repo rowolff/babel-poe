@@ -1,5 +1,9 @@
 import React from 'react'
 
+const nameStyle = {
+  color: '#AAAAFF'
+}
+
 class MessageLine extends React.Component {
   render() {
     const messageObj =
@@ -10,9 +14,12 @@ class MessageLine extends React.Component {
       <li id={this.props.key}>
         {messageObj ? (
           <p>
-            &lt;
-            {messageObj.guild}
-            &gt; {messageObj.user}: {messageObj.message}
+            <span style={nameStyle}>
+              &lt;
+              {messageObj.guild}
+              &gt; {messageObj.user}:
+            </span>{' '}
+            {messageObj.message}
           </p>
         ) : (
           ''
