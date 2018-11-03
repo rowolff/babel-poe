@@ -1,8 +1,7 @@
 import React from 'react'
 import Message from './Message'
 import translate from '../../utils/translate'
-
-const queueSize = 5
+import { QUEUE_SIZE } from '../../utils/constants'
 
 const style = {
   display: 'block',
@@ -27,7 +26,7 @@ class TranslateQueue extends React.Component {
         } else {
           const text = translation.translatedText
           const list = this.state.messageList
-          if (list.length === queueSize) {
+          if (list.length === QUEUE_SIZE) {
             list.shift()
           }
           list.push(text)
@@ -40,7 +39,7 @@ class TranslateQueue extends React.Component {
   render() {
     return (
       <div>
-        <h4>Last {queueSize} Messages (translated):</h4>
+        <h4>Last {QUEUE_SIZE} whispers (translated):</h4>
         <ul style={style}>
           {this.state.messageList.map((message, index) => (
             <Message message={message} key={index} />

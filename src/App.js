@@ -4,6 +4,7 @@ import './App.css'
 import Filestream from './components/electron/Filestream'
 import Picker from './components/electron/Picker'
 import TranslateQueue from './components/electron/TranslateQueue'
+import messageFilter from './utils/filter'
 
 import {
   SAVE_FILEPATH_TO_STORAGE,
@@ -74,7 +75,11 @@ class App extends Component {
   }
 
   handleLogUpdate(line) {
-    this.setState({ original: line })
+    const messageObject = messageFilter(line)
+    // todo: filter messages of own language
+    if (messageObject.whisper) {
+      this.setState({ original: messageObject.message })
+    }
   }
 
   render() {

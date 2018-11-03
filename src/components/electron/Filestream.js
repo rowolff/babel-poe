@@ -33,7 +33,7 @@ class Filestream extends React.Component {
   render() {
     return (
       <div>
-        <h4>Last message (untranslated):</h4>
+        <h4>Last whisper (untranslated):</h4>
         <p>{this.state.original}</p>
       </div>
     )

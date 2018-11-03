@@ -5,5 +5,6 @@ module.exports = {
   HANDLE_SAVE_FILEPATH_TO_STORAGE: 'handle-save-filepath-to-storage',
   POLLING_INTERVAL: 1000,
   DEFAULT_PICK_FILE_MESSAGE:
-    ' - It is usually located in C:\\Program Files (x86)\\Grinding Gear Games\\Path of Exile\\logs\\Client.txt'
+    ' - It is usually located in C:\\Program Files (x86)\\Grinding Gear Games\\Path of Exile\\logs\\Client.txt',
+  QUEUE_SIZE: 5
 }
