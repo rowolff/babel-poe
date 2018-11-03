@@ -6,7 +6,7 @@ class LanguagePicker extends React.Component {
   render() {
     return (
       <div>
-        Language:
+        Your Language:
         <select onChange={this.props.onLanguageChange}>
           {LANGUAGES.map(language => (
             <option value={Object.keys(language)}>

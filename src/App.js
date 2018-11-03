@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import Filestream from './components/Filestream'
+import Whisper from './components/Whisper'
 import FilePicker from './components/FilePicker'
 import LanguagePicker from './components/LanguagePicker'
 import TranslateQueue from './components/TranslateQueue'
@@ -13,6 +13,7 @@ import {
   HANDLE_FETCH_FILEPATH_FROM_STORAGE,
   DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
+import DetectedLanguage from './components/DetectedLanguage'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -97,7 +98,9 @@ class App extends Component {
             {fileSaveMessage} {file}
           </p>
           <FilePicker onFileChange={this.handleFileChange} />
-          <Filestream file={file} onLogUpdate={this.handleLogUpdate} />
+          <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
+            <DetectedLanguage language={this.state.detectedLanguage} />
+          </Whisper>
           <LanguagePicker onLanguageChange={this.handleLanguageChange} />
           <TranslateQueue original={original} />
         </header>

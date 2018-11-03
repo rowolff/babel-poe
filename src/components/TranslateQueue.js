@@ -1,6 +1,6 @@
 import React from 'react'
 import MessageLine from './MessageLine'
-import translate from '../utils/translate'
+import { translate } from '../utils/translate'
 import { QUEUE_SIZE } from '../utils/constants'
 
 const style = {
@@ -45,7 +45,7 @@ class TranslateQueue extends React.Component {
   render() {
     return (
       <div>
-        <h4>Last {QUEUE_SIZE} whispers (translated):</h4>
+        <h4>Last {QUEUE_SIZE} translated whispers:</h4>
         <ul style={style}>
           {this.state.messageList.map((messageObj, index) => (
             <MessageLine message={messageObj} key={index} />
