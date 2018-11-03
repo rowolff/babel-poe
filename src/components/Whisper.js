@@ -2,10 +2,10 @@ import React from 'react'
 
 import MessageLine from './MessageLine'
 
-import Tail from '../../utils/tail'
-import messageFilter from '../../utils/filter'
+import Tail from '../utils/tail'
+import messageFilter from '../utils/filter'
 
-import { POLLING_INTERVAL } from '../../utils/constants'
+import { POLLING_INTERVAL } from '../utils/constants'
 
 const style = {
   display: 'block',
@@ -14,7 +14,7 @@ const style = {
   justifyContent: 'flex-start'
 }
 
-class Filestream extends React.Component {
+class Whisper extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -61,9 +61,10 @@ class Filestream extends React.Component {
         <ul style={style}>
           <MessageLine message={this.state.original} key="original" />
         </ul>
+        <p>{this.props.children}</p>
       </div>
     )
   }
 }
 
-export default Filestream
+export default Whisper
