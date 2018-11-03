@@ -110,7 +110,10 @@ class App extends Component {
           <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
             <DetectedLanguage language={this.state.detectedLanguage} />
           </Whisper>
-          <LanguagePicker onLanguageChange={this.handleLanguageChange} />
+          <LanguagePicker
+            onLanguageChange={this.handleLanguageChange}
+            targetLanguage={this.state.targetLanguage}
+          />
           <TranslateQueue
             original={original}
             targetLanguage={this.state.targetLanguage}

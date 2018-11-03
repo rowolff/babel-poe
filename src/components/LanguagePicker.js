@@ -9,7 +9,10 @@ class LanguagePicker extends React.Component {
         Your Language:
         <select onChange={this.props.onLanguageChange}>
           {LANGUAGES.map(language => (
-            <option value={Object.keys(language)}>
+            <option
+              value={Object.keys(language)}
+              selected={this.props.targetLanguage === Object.keys(language)[0]}
+            >
               {Object.values(language)[0]}
             </option>
           ))}
