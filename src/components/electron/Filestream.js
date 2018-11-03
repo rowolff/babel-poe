@@ -19,7 +19,6 @@ class Filestream extends React.Component {
     super(props)
     this.state = {
       original: {},
-      intervalId: null,
       prevFileInstance: null
     }
   }
