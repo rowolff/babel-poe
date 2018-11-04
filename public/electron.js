@@ -1,54 +1,19 @@
 const {
-  GTAG,
   SAVE_KEY_TO_STORAGE,
   HANDLE_SAVE_KEY_TO_STORAGE,
   FETCH_KEY_FROM_STORAGE,
   HANDLE_FETCH_KEY_FROM_STORAGE
-} = require('./constants')
+} = require('./utils/constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
-const ua = require('universal-analytics')
-const uuid = require('uuid/v4')
 const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
 
-// Analytics
-let userId = uuid()
-// Retrieve the userid value, if it's not there, we use the new uuid.
-storage.has('user', (err, hasKey) => {
-  if (err) {
-    console.error(err)
-  }
-  if (hasKey) {
-    storage.get('user', (err, data) => {
-      if (err) {
-        console.error(err)
-      }
-      userId = data.userid
-    })
-  } else {
-    storage.set('user', { userid: userId }, err => {
-      if (err) {
-        console.error('cannot save user id')
-      }
-    })
-  }
-})
-// (re)save the userid, so it persists for the next app session.
+const { setupUserId, trackEvent } = require('./utils/analytics')
 
-const usr = ua(GTAG, userId)
-
-function trackEvent(category, action, label, value) {
-  usr
-    .event({
-      ec: category,
-      ea: action,
-      el: label,
-      ev: value
-    })
-    .send()
-}
+// for Analytics
+setupUserId()
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
