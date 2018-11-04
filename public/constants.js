@@ -1,4 +1,5 @@
 module.exports = {
+  GTAG: 'UA-111680527-2',
   FETCH_KEY_FROM_STORAGE: 'fetch-key-from-storage',
   SAVE_KEY_TO_STORAGE: 'save-key-to-storage',
   HANDLE_FETCH_KEY_FROM_STORAGE: 'handle-fetch-key-from-storage',
