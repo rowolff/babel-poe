@@ -54,7 +54,9 @@ class ReplyBox extends React.Component {
           placeholder="reply here"
           onChange={this.handleTextChange}
         />
-        <button onClick={this.handleReply}>Copy reply to clipboard</button>
+        <button className="rightbtn" onClick={this.handleReply}>
+          Copy reply to clipboard
+        </button>
         {translatedReply ? <ReplyTranslation reply={translatedReply} /> : ''}
       </div>
     )
