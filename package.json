@@ -45,6 +45,7 @@
     "appId": "net.rawbird.babelpoe",
     "electronVersion": "3.0.6",
     "dmg": {
+      "icon": "assets/mac/icon.hqx",
       "contents": [
         {
           "x": 110,
@@ -60,7 +61,7 @@
     },
     "win": {
       "target": "NSIS",
-      "icon": "build/icon.ico"
+      "icon": "assets/win/icon.ico"
     },
     "files": [
       "build/**/*",
