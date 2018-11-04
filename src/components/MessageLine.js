@@ -13,7 +13,7 @@ class MessageLine extends React.Component {
             <span className="highlight">
               {messageObj.guild ? '<' : ''}
               {messageObj.guild}
-              {messageObj.guild ? '>' : ''}
+              {messageObj.guild ? '> ' : ''}
               {messageObj.user}:
             </span>{' '}
             {messageObj.message}
