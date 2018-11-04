@@ -3,12 +3,18 @@ const {
   HANDLE_SAVE_KEY_TO_STORAGE,
   FETCH_KEY_FROM_STORAGE,
   HANDLE_FETCH_KEY_FROM_STORAGE
-} = require('./constants')
+} = require('./utils/constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
+
+const { setupUserId, trackEvent } = require('./utils/analytics')
+
+// for Analytics
+setupUserId()
+global.trackEvent = trackEvent
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -29,6 +35,9 @@ function createWindow() {
       slashes: true
     })
   win.loadURL(startUrl)
+
+  // GA
+  trackEvent('Application', 'App started')
 
   // Emitted when the window is closed.
   win.on('closed', () => {

@@ -4,11 +4,17 @@ An electron app that automatically translates incoming Path of Exile chat messag
 
 Uses create-react-app for scaffolding.
 
-## install
+# For users
+
+Go to the release page (coming soon) and download/run the setup.
+
+# For developers
+
+## install dependencies
 
 `npm install`
 
-## before you run
+## before you run the development environment
 
 You will have to create the file `./src/utils/keys.js` and add a valid Google Cloud API key with access to the Translation API. The file has this format:
 
@@ -20,12 +26,19 @@ module.exports = {
 
 Reason is: I haven't figured out yet how to pass environment variables into the Electron build :/
 
-## run
+## run and build
 
 Development: `npm run dev`
+
 Production build (Mac): `npm run mac:build`
+
 Production build (Windows): `npm run win:build`
 
 ## massive thanks
 
-[Vladimir Setka](https://github.com/vsetka) for improving the file streaming
+[Vladimir Setka](https://github.com/vsetka) for
+
+- improving the file streaming
+- helping with the regex finding and parsing whispers
+- proper error handling
+- being patiend for all my stupid questions :D

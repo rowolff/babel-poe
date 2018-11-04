@@ -6,8 +6,6 @@ const messageFilter = message => {
   if (matches) {
     const [, guild, user, message] = matches
 
-    // guild = guild || ''
-
     return {
       whisper: true,
       guild,

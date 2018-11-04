@@ -3,6 +3,8 @@ import ReplyTranslation from './ReplyTranslation'
 import { translate } from '../utils/translate'
 
 const { clipboard } = window.require('electron')
+const { getGlobal } = window.require('electron').remote
+const trackEvent = getGlobal('trackEvent')
 
 class ReplyBox extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class ReplyBox extends React.Component {
           if (err) {
             console.error('cannot translate')
           } else {
+            trackEvent('User event', 'Reply translated')
             this.setState({
               translatedReply: translation.translatedText
             })
