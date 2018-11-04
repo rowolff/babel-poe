@@ -6,7 +6,7 @@ Uses create-react-app for scaffolding.
 
 # For users
 
-Go to the release page https://github.com/rowolff/babel-poe and download/run the setup.
+Go to the release page https://github.com/rowolff/babel-poe/releases and download/run the setup.
 
 # For developers
 
