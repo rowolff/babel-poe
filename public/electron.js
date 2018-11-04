@@ -31,6 +31,7 @@ function createWindow() {
     process.env.ELECTRON_START_URL ||
     url.format({
       pathname: path.join(__dirname, '/../build/index.html'),
+      icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
       protocol: 'file:',
       slashes: true
     })
