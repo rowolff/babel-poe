@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import './App.css'
 
 import Whisper from './components/Whisper'
-import FilePicker from './components/FilePicker'
+import DetectedLanguage from './components/DetectedLanguage'
 import LanguagePicker from './components/LanguagePicker'
 import TranslateQueue from './components/TranslateQueue'
 import ReplyBox from './components/ReplyBox'
+import FilePicker from './components/FilePicker'
+import Imprint from './components/Imprint'
 
 import { detectLanguage } from './utils/translate'
 
@@ -16,7 +18,6 @@ import {
   HANDLE_FETCH_KEY_FROM_STORAGE,
   DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
-import DetectedLanguage from './components/DetectedLanguage'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -107,6 +108,7 @@ class App extends Component {
     const { fileSaveMessage, file, original } = this.state
     return (
       <div className="App">
+        <Imprint />
         <div className={file ? '' : 'disabled'}>
           <hr />
           <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
