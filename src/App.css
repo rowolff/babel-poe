@@ -47,7 +47,7 @@ p {
 }
 
 hr {
-  border-color: #6d6a65;
+  border-color: #78360d;
   border-width: 2px;
   width: 100%;
 }
@@ -88,7 +88,7 @@ hr {
 }
 
 .replybox {
-  width: 60vw;
+  width: 75%;
 }
 
 .fileready {
@@ -123,4 +123,19 @@ hr {
   width: 100%;
   height: 800px;
   position: relative;
+}
+
+.row {
+  display: inline-flex;
+}
+
+.rightbtn {
+  position: fixed;
+  right: 10px;
+  margin-top: 5px;
+}
+
+.donatebtn {
+  background-color: #27800d;
+  color: #ffffff;
 }

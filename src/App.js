@@ -18,6 +18,7 @@ import {
   HANDLE_FETCH_KEY_FROM_STORAGE,
   DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
+import Donate from './components/Donate'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -109,7 +110,10 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="Appname">Babel PoE</h1>
-        <Imprint />
+        <div className="row">
+          <Imprint />
+          <Donate />
+        </div>
         <div className={file ? '' : 'disabled'}>
           <hr />
           <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
