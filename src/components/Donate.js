@@ -14,7 +14,7 @@ class Donate extends React.Component {
   render() {
     return (
       <div>
-        <button className="donatebtn rightbtn" onClick={this.handleClick}>
+        <button className="donatebtn" onClick={this.handleClick}>
           Donate!
         </button>
       </div>

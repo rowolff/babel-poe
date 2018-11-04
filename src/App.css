@@ -126,7 +126,7 @@ hr {
 }
 
 .row {
-  display: inline-flex;
+  display: block;
 }
 
 .rightbtn {
@@ -138,4 +138,7 @@ hr {
 .donatebtn {
   background-color: #27800d;
   color: #ffffff;
+  position: fixed;
+  right: 10px;
+  top: 135px;
 }
