@@ -30,7 +30,12 @@ class DetectedLanguage extends React.Component {
   }
 
   render() {
-    return <div>Detected Language: {this.state.detectedLanguage}</div>
+    return (
+      <div>
+        Detected Language:{' '}
+        <span className="highlight">{this.state.detectedLanguage}</span>
+      </div>
+    )
   }
 }
 

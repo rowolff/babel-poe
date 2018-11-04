@@ -11,9 +11,10 @@ class MessageLine extends React.Component {
         {messageObj ? (
           <p>
             <span className="highlight">
-              &lt;
+              {messageObj.guild ? '<' : ''}
               {messageObj.guild}
-              &gt; {messageObj.user}:
+              {messageObj.guild ? '>' : ''}
+              {messageObj.user}:
             </span>{' '}
             {messageObj.message}
           </p>

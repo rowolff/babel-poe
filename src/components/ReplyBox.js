@@ -27,14 +27,15 @@ class ReplyBox extends React.Component {
         (err, translation) => {
           if (err) {
             console.error('cannot translate')
+          } else {
+            this.setState({
+              translatedReply: translation.translatedText
+            })
+            clipboard.writeText(
+              '@' + this.props.recipient + ' ' + translation.translatedText
+            )
+            document.getElementById('replyBox').value = ''
           }
-          this.setState({
-            translatedReply: translation.translatedText
-          })
-          clipboard.writeText(
-            '@' + this.props.recipient + ' ' + translation.translatedText
-          )
-          document.getElementById('replyBox').value = ''
         }
       )
     }
