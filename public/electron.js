@@ -14,24 +14,28 @@ const url = require('url')
 const storage = require('electron-json-storage')
 
 // Analytics
-// Retrieve the userid value, and if it's not there, assign it a new uuid.
-const userId =
-  storage.get('userid', async (err, data) => {
-    if (err) {
-      console.error('cannot read user id')
-    } else {
-      if (data.userid) {
-        return data.userid
-      }
-    }
-  }) || uuid()
-
-// (re)save the userid, so it persists for the next app session.
-storage.set('user', { userid: userId }, err => {
+let userId = uuid()
+// Retrieve the userid value, if it's not there, we use the new uuid.
+storage.has('user', (err, hasKey) => {
   if (err) {
-    console.error('cannot save user id')
+    console.error(err)
+  }
+  if (hasKey) {
+    storage.get('user', (err, data) => {
+      if (err) {
+        console.error(err)
+      }
+      userId = data.userid
+    })
+  } else {
+    storage.set('user', { userid: userId }, err => {
+      if (err) {
+        console.error('cannot save user id')
+      }
+    })
   }
 })
+// (re)save the userid, so it persists for the next app session.
 
 const usr = ua(GTAG, userId)
 
@@ -65,6 +69,8 @@ function createWindow() {
       slashes: true
     })
   win.loadURL(startUrl)
+
+  // GA
   trackEvent('Application', 'App started')
 
   // Emitted when the window is closed.
