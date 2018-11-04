@@ -6,6 +6,7 @@ const {
 } = require('./utils/constants')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
+const { autoUpdater } = require('electron-updater')
 const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
@@ -39,6 +40,9 @@ function createWindow() {
 
   // GA
   trackEvent('Application', 'App started')
+
+  // Auto Update
+  autoUpdater.checkForUpdatesAndNotify()
 
   // Emitted when the window is closed.
   win.on('closed', () => {

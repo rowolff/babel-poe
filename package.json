@@ -3,7 +3,7 @@
   "author": {
     "name": "Robert Wolff"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "nf start",
@@ -61,7 +61,10 @@
     },
     "win": {
       "target": "NSIS",
-      "icon": "assets/win/icon.ico"
+      "icon": "assets/win/icon.ico",
+      "publish": [
+        "github"
+      ]
     },
     "files": [
       "build/**/*",
@@ -70,6 +73,7 @@
   },
   "dependencies": {
     "electron-json-storage": "^4.1.4",
+    "electron-updater": "^3.1.6",
     "google-translate": "^2.2.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -102,5 +106,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rowolff/babel-poe.git"
+  }
 }
