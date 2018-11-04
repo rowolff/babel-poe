@@ -14,6 +14,7 @@ const { setupUserId, trackEvent } = require('./utils/analytics')
 
 // for Analytics
 setupUserId()
+global.trackEvent = trackEvent
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

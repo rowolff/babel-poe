@@ -3,6 +3,9 @@ import MessageLine from './MessageLine'
 import { translate } from '../utils/translate'
 import { QUEUE_SIZE } from '../utils/constants'
 
+const { getGlobal } = window.require('electron').remote
+const trackEvent = getGlobal('trackEvent')
+
 class TranslateQueue extends React.Component {
   constructor(props) {
     super(props)
@@ -23,6 +26,7 @@ class TranslateQueue extends React.Component {
           if (err) {
             console.error(err)
           } else {
+            trackEvent('User event', 'Whisper translated')
             const text = translation.translatedText
             const list = this.state.messageList
             if (list.length === QUEUE_SIZE) {
