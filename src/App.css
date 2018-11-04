@@ -62,7 +62,7 @@ hr {
   align-items: left;
   font-size: 14pt;
   color: #6d6a65;
-  padding: 10px;
+  padding: 15px;
   background-blend-mode: darken;
 }
 
@@ -76,6 +76,11 @@ hr {
   right: 0;
   position: absolute;
   z-index: -1;
+}
+
+.Appname {
+  position: absolute;
+  top: 25px;
 }
 
 .highlight {
@@ -101,4 +106,21 @@ hr {
 
 .warning {
   color: #ffffff;
+}
+
+.imprint {
+  background: linear-gradient(#100607, #000000);
+}
+
+.cover {
+  content: '';
+  background: linear-gradient(#100607, #000000);
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 800px;
+  position: relative;
 }

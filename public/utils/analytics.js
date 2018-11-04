@@ -30,7 +30,7 @@ function setupUserId() {
 }
 
 function trackEvent(category, action, label, value) {
-  const usr = ua(GTAG, userId)
+  const usr = ua(GTAG, { uid: userId, anonymizeIp: true })
   usr
     .event({
       ec: category,
