@@ -108,6 +108,7 @@ class App extends Component {
     const { fileSaveMessage, file, original } = this.state
     return (
       <div className="App">
+        <h1 className="Appname">Babel PoE</h1>
         <Imprint />
         <div className={file ? '' : 'disabled'}>
           <hr />

@@ -78,6 +78,11 @@ hr {
   z-index: -1;
 }
 
+.Appname {
+  position: absolute;
+  top: 25px;
+}
+
 .highlight {
   color: #cec59f;
 }
