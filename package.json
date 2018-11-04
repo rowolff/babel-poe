@@ -3,7 +3,7 @@
   "author": {
     "name": "Robert Wolff"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "scripts": {
     "dev": "nf start",
