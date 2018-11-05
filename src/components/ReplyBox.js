@@ -5,6 +5,7 @@ import { translate } from '../utils/translate'
 const { clipboard } = window.require('electron')
 const { getGlobal } = window.require('electron').remote
 const trackEvent = getGlobal('trackEvent')
+const reportError = getGlobal('reportError')
 
 class ReplyBox extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class ReplyBox extends React.Component {
         this.props.replyToLanguage,
         (err, translation) => {
           if (err) {
-            console.error('cannot translate')
+            reportError(err)
           } else {
             trackEvent('User event', 'Reply translated')
             this.setState({

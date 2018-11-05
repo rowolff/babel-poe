@@ -41,4 +41,9 @@ async function trackEvent(category, action, label, value) {
     .send()
 }
 
-module.exports = { trackEvent }
+async function reportError(description) {
+  const usr = ua(GTAG, { uid: await getUserId(), anonymizeIp: true })
+  usr.exception(description).send()
+}
+
+module.exports = { trackEvent, reportError }

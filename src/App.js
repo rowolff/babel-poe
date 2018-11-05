@@ -8,6 +8,7 @@ import TranslateQueue from './components/TranslateQueue'
 import ReplyBox from './components/ReplyBox'
 import FilePicker from './components/FilePicker'
 import Imprint from './components/Imprint'
+import Donate from './components/Donate'
 
 import { detectLanguage } from './utils/translate'
 
@@ -18,9 +19,10 @@ import {
   HANDLE_FETCH_KEY_FROM_STORAGE,
   DEFAULT_PICK_FILE_MESSAGE
 } from './utils/constants'
-import Donate from './components/Donate'
 
 const { ipcRenderer } = window.require('electron')
+const { getGlobal } = window.require('electron').remote
+const reportError = getGlobal('reportError')
 
 class App extends Component {
   constructor(props) {
@@ -97,7 +99,7 @@ class App extends Component {
     if (obj.whisper) {
       detectLanguage(obj.message, (err, detection) => {
         if (err) {
-          console.error(err)
+          reportError(err)
         } else {
           this.setState({ detectedLanguage: detection.language, original: obj })
         }
