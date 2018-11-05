@@ -62,9 +62,7 @@
     "win": {
       "target": "NSIS",
       "icon": "assets/win/icon.ico",
-      "publish": [
-        "github"
-      ]
+      "publish": "github"
     },
     "files": [
       "build/**/*",

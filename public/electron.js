@@ -100,6 +100,8 @@ ipcMain.on(SAVE_KEY_TO_STORAGE, (event, pair) => {
   })
 })
 
+app.setAppUserModelId('net.rawbird.babelpoe')
+
 app.on('ready', createWindow)
 
 // Quit when all windows are closed.
