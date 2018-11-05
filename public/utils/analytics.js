@@ -4,11 +4,10 @@ const ua = require('universal-analytics')
 const uuid = require('uuid/v4')
 const storage = require('electron-json-storage')
 
-let userId = uuid()
-
-function setupUserId() {
+async function getUserId() {
   // Retrieve the userid value, if it's not there, we use the new uuid.
-  storage.has('user', (err, hasKey) => {
+  let userId = uuid()
+  await storage.has('user', (err, hasKey) => {
     if (err) {
       console.error(err)
     }
@@ -27,10 +26,11 @@ function setupUserId() {
       })
     }
   })
+  return userId
 }
 
-function trackEvent(category, action, label, value) {
-  const usr = ua(GTAG, { uid: userId, anonymizeIp: true })
+async function trackEvent(category, action, label, value) {
+  const usr = ua(GTAG, { uid: await getUserId(), anonymizeIp: true })
   usr
     .event({
       ec: category,
@@ -41,4 +41,4 @@ function trackEvent(category, action, label, value) {
     .send()
 }
 
-module.exports = { setupUserId, trackEvent }
+module.exports = { trackEvent }

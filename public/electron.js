@@ -11,10 +11,9 @@ const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
 
-const { setupUserId, trackEvent } = require('./utils/analytics')
+const { trackEvent } = require('./utils/analytics')
 
 // for Analytics
-setupUserId()
 global.trackEvent = trackEvent
 
 // Keep a global reference of the window object, if you don't, the window will
