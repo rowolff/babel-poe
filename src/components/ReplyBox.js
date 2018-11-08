@@ -15,15 +15,22 @@ class ReplyBox extends React.Component {
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleReply = this.handleReply.bind(this)
+  }
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.handleReply()
+    }
   }
 
   handleTextChange(e) {
     this.setState({ replyText: e.target.value })
   }
 
-  handleReply(e) {
-    if (this.props.replyToLanguage) {
+  handleReply() {
+    if (this.props.replyToLanguage && this.state.replyText.length > 0) {
       translate(
         this.state.replyText,
         this.props.replyToLanguage,
@@ -54,6 +61,7 @@ class ReplyBox extends React.Component {
           className="replybox"
           placeholder="reply here"
           onChange={this.handleTextChange}
+          onKeyPress={this.handleKeyPress}
         />
         <button className="rightbtn" onClick={this.handleReply}>
           Copy reply to clipboard
