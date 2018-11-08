@@ -11,11 +11,11 @@ const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
 
-const { setupUserId, trackEvent } = require('./utils/analytics')
+const { trackEvent, reportError } = require('./utils/analytics')
 
 // for Analytics
-setupUserId()
 global.trackEvent = trackEvent
+global.reportError = reportError
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -53,6 +53,7 @@ function createWindow() {
 ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
   storage.has(key, (err, hasKey) => {
     if (err) {
+      reportError(err)
       win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
         message: 'an error occured with storage library'
@@ -61,6 +62,7 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
     if (hasKey) {
       storage.get(key, (err, data) => {
         if (err) {
+          reportError(err)
           win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
             success: false,
             message: 'could not fetch local file containing path'
@@ -87,6 +89,7 @@ ipcMain.on(SAVE_KEY_TO_STORAGE, (event, pair) => {
   const returnObj = Object.assign({}, pair)
   storage.set(Object.keys(pair)[0], pair, err => {
     if (err) {
+      reportError(err)
       returnObj.success = false
       returnObj.message = 'could not save key: '
       win.send(HANDLE_SAVE_KEY_TO_STORAGE, returnObj)
@@ -96,6 +99,8 @@ ipcMain.on(SAVE_KEY_TO_STORAGE, (event, pair) => {
     win.send(HANDLE_SAVE_KEY_TO_STORAGE, returnObj)
   })
 })
+
+app.setAppUserModelId('net.rawbird.babelpoe')
 
 app.on('ready', createWindow)
 

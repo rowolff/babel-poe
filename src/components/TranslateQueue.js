@@ -5,6 +5,7 @@ import { QUEUE_SIZE } from '../utils/constants'
 
 const { getGlobal } = window.require('electron').remote
 const trackEvent = getGlobal('trackEvent')
+const reportError = getGlobal('reportError')
 
 class TranslateQueue extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class TranslateQueue extends React.Component {
         this.props.targetLanguage,
         (err, translation) => {
           if (err) {
-            console.error(err)
+            reportError(err)
           } else {
             trackEvent('User event', 'Whisper translated')
             const text = translation.translatedText
