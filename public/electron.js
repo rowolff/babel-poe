@@ -79,7 +79,7 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
     } else {
       win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
-        message: 'Please select a log file.'
+        message: 'Please select Client.txt'
       })
     }
   })
