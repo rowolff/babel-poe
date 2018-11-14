@@ -1,12 +1,14 @@
+/* eslint-disable standard/no-callback-literal */
 const { GTAG } = require('./constants')
 
 const ua = require('universal-analytics')
 const uuid = require('uuid/v4')
 const storage = require('electron-json-storage')
 
-async function getUserId() {
-  // Retrieve the userid value, if it's not there, we use the new uuid.
-  let userId = uuid()
+let userId = ''
+
+async function setupUserOnAppStart(callback) {
+  // Retrieve the userid value, if it's not there, we create a new uuid and save it.
   await storage.has('user', (err, hasKey) => {
     if (err) {
       console.error(err)
@@ -17,20 +19,22 @@ async function getUserId() {
           console.error(err)
         }
         userId = data.userid
+        callback('Application', 'App started')
       })
     } else {
+      userId = uuid()
       storage.set('user', { userid: userId }, err => {
         if (err) {
           console.error('cannot save user id')
         }
       })
+      callback('Application', 'App started')
     }
   })
-  return userId
 }
 
-async function trackEvent(category, action, label, value) {
-  const usr = ua(GTAG, { uid: await getUserId(), anonymizeIp: true })
+function trackEvent(category, action, label, value) {
+  const usr = ua(GTAG, { uid: userId, anonymizeIp: true })
   usr
     .event({
       ec: category,
@@ -41,9 +45,9 @@ async function trackEvent(category, action, label, value) {
     .send()
 }
 
-async function reportError(description) {
-  const usr = ua(GTAG, { uid: await getUserId(), anonymizeIp: true })
+function reportError(description) {
+  const usr = ua(GTAG, { uid: userId, anonymizeIp: true })
   usr.exception(description).send()
 }
 
-module.exports = { trackEvent, reportError }
+module.exports = { setupUserOnAppStart, trackEvent, reportError }
