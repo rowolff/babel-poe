@@ -5,6 +5,13 @@
   src: './assets/Fontin-Regular.ttf';
 }
 
+@font-face {
+  font-family: 'Fontin-Mac';
+  font-style: normal;
+  font-weight: 300;
+  src: './assets/Fontin-Regular.otf';
+}
+
 body {
   background-color: #100607;
   background-image: url(./assets/Path_of_Exile_Wallpaper_1.jpg);
@@ -13,7 +20,7 @@ body {
 
 button,
 select {
-  font-family: 'Fontin';
+  font-family: 'Fontin, Fontin-Mac';
   color: #cec59f;
   background-color: #78360d;
   border-color: #cec59f;
@@ -22,7 +29,7 @@ select {
 
 input,
 option {
-  font-family: 'Fontin';
+  font-family: 'Fontin, Fontin-Mac';
   color: #100607;
   background-color: #cec59f;
   border-radius: 7px;
@@ -61,7 +68,7 @@ hr {
   flex-direction: column;
   align-items: left;
   font-size: 14pt;
-  color: #6d6a65;
+  color: #afaaa2;
   padding: 15px;
   background-blend-mode: darken;
 }
@@ -69,7 +76,7 @@ hr {
 .App::after {
   content: '';
   background: linear-gradient(#100607, #000000);
-  opacity: 0.6;
+  opacity: 0.7;
   top: 0;
   left: 0;
   bottom: 0;
@@ -84,7 +91,7 @@ hr {
 }
 
 .highlight {
-  color: #cec59f;
+  color: #ebe1b6;
 }
 
 .replybox {

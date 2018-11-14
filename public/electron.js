@@ -11,7 +11,11 @@ const path = require('path')
 const url = require('url')
 const storage = require('electron-json-storage')
 
-const { trackEvent, reportError } = require('./utils/analytics')
+const {
+  setupUserOnAppStart,
+  trackEvent,
+  reportError
+} = require('./utils/analytics')
 
 // for Analytics
 global.trackEvent = trackEvent
@@ -39,7 +43,7 @@ function createWindow() {
   win.loadURL(startUrl)
 
   // GA
-  trackEvent('Application', 'App started')
+  setupUserOnAppStart(trackEvent)
 
   // Auto Update
   autoUpdater.checkForUpdatesAndNotify()
@@ -79,7 +83,7 @@ ipcMain.on(FETCH_KEY_FROM_STORAGE, (event, key) => {
     } else {
       win.send(HANDLE_FETCH_KEY_FROM_STORAGE, {
         success: false,
-        message: 'Please select a log file.'
+        message: 'Please select Client.txt'
       })
     }
   })
