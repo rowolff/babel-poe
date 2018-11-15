@@ -43,7 +43,7 @@ function createWindow() {
   win.loadURL(startUrl)
 
   // GA
-  setupUserOnAppStart(trackEvent)
+  setupUserOnAppStart()
 
   // Auto Update
   autoUpdater.checkForUpdatesAndNotify()

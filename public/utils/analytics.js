@@ -6,9 +6,9 @@ const storage = require('electron-json-storage')
 
 let userId = 'no user id'
 
-async function setupUserOnAppStart(callback) {
+function setupUserOnAppStart() {
   // Retrieve the userid value, if it's not there, we create a new uuid and save it.
-  await storage.has('user', (err, hasKey) => {
+  storage.has('user', (err, hasKey) => {
     if (err) {
       reportError(err)
     }
@@ -18,7 +18,7 @@ async function setupUserOnAppStart(callback) {
           reportError(err)
         }
         userId = data.userid
-        callback(err, ['Application', 'App started'])
+        trackEvent(err, ['Application', 'App started'])
       })
     } else {
       userId = uuid()
@@ -27,7 +27,7 @@ async function setupUserOnAppStart(callback) {
           reportError(err)
         }
       })
-      callback(err, ['Application', 'App started'])
+      trackEvent(err, ['Application', 'App started'])
     }
   })
 }
