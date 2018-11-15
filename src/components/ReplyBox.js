@@ -38,7 +38,7 @@ class ReplyBox extends React.Component {
           if (err) {
             reportError(err)
           } else {
-            trackEvent('User event', 'Reply translated')
+            trackEvent(err, ['User event', 'Reply translated'])
             this.setState({
               translatedReply: translation.translatedText
             })

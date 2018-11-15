@@ -27,7 +27,7 @@ class TranslateQueue extends React.Component {
           if (err) {
             reportError(err)
           } else {
-            trackEvent('User event', 'Whisper translated')
+            trackEvent(err, ['User event', 'Whisper translated'])
             const text = translation.translatedText
             const list = this.state.messageList
             if (list.length === QUEUE_SIZE) {
