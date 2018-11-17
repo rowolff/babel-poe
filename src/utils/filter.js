@@ -1,4 +1,4 @@
-const messageRegex = /.+?(?:@From)\s+(?:<(.+)>\s+)?(.+):\s+(.*)/i
+const messageRegex = /.+?(?:@From)\s+(?:<(.+)>\s+)?(.+)(?=.*?:.*?:):(.*)/i
 
 const messageFilter = message => {
   const matches = messageRegex.exec(message)
