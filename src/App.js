@@ -17,7 +17,8 @@ import {
   HANDLE_SAVE_KEY_TO_STORAGE,
   FETCH_KEY_FROM_STORAGE,
   HANDLE_FETCH_KEY_FROM_STORAGE,
-  DEFAULT_PICK_FILE_MESSAGE
+  DEFAULT_PICK_FILE_MESSAGE,
+  API_ERROR
 } from './utils/constants'
 
 const { ipcRenderer } = window.require('electron')
@@ -33,7 +34,8 @@ class App extends Component {
       fileSaveSuccess: false,
       fileSaveMessage: '',
       targetLanguage: 'en',
-      detectedLanguage: null
+      detectedLanguage: null,
+      apiError: ''
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -99,9 +101,16 @@ class App extends Component {
     if (obj.whisper) {
       detectLanguage(obj.message, (err, detection) => {
         if (err) {
+          this.setState({
+            apiError: API_ERROR
+          })
           reportError(err)
         } else {
-          this.setState({ detectedLanguage: detection.language, original: obj })
+          this.setState({
+            detectedLanguage: detection.language,
+            original: obj,
+            apiError: ''
+          })
         }
       })
     }
@@ -121,6 +130,7 @@ class App extends Component {
           <Whisper file={file} onLogUpdate={this.handleLogUpdate}>
             <DetectedLanguage language={this.state.detectedLanguage} />
           </Whisper>
+          <h2 className="api-error">{this.state.apiError}</h2>
           <hr />
           <LanguagePicker
             onLanguageChange={this.handleLanguageChange}

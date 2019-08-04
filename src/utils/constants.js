@@ -6,6 +6,8 @@ module.exports = {
   POLLING_INTERVAL: 1000,
   DEFAULT_PICK_FILE_MESSAGE:
     ' - It is usually located in C:\\Program Files (x86)\\Grinding Gear Games\\Path of Exile\\logs\\ for the standalone client and in C:\\SteamLibrary\\steamapps\\common\\Path of Exile\\logs\\ for Steam.',
+  API_ERROR:
+    'Service limit on Translate API exceeded. Consider donating to keep this service operational',
   QUEUE_SIZE: 5,
   LANGUAGES: [
     { af: 'Afrikaans' },

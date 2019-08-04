@@ -149,3 +149,7 @@ hr {
   right: 10px;
   top: 135px;
 }
+
+.api-error {
+  color: #ff00ff;
+}
