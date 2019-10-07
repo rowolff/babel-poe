@@ -6,7 +6,7 @@ Uses create-react-app for scaffolding.
 
 # For users
 
-Go to the release page https://github.com/rowolff/babel-poe/releases and download/run the setup.
+Note: The app is currently taken offline. Due to the translation API cost I can no longer afford to offer this service with me paying for it out of my own pocket. In the future, I'm hoping to rebuild the app with a cheaper or free translation tool and will then republish it.
 
 # For developers
 
