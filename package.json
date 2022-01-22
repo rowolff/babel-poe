@@ -97,7 +97,7 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.12.1",
     "jest": "23.6.0",
-    "node-fetch": "^2.1.2"
+    "node-fetch": "^3.1.1"
   },
   "browserslist": [
     ">0.2%",
